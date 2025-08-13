@@ -1,20 +1,18 @@
-import 'package:dashboard/povider/prov.dart';
+// components/widgets/animationadding.dart
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class EditSuccessDialog {
 
   void showEditSuccessDialog(
     BuildContext context,
-    {required dynamic title, required VoidCallback onpressed}
+    {required dynamic title, required VoidCallback onpressed, required bool check}
   )
   {
     showDialog(
       context: context,
       builder: (dialogcontext) {
-       final prov = Provider.of<Signinprovider>(dialogcontext, listen: false);
         return AlertDialog(
-          title: prov.check? Icon(Icons.check_circle_outline_rounded, color: Colors.green, size: 50,)
+          title: check? Icon(Icons.check_circle_outline_rounded, color: Colors.green, size: 50,)
           :Icon(Icons.cancel_outlined, color: Colors.red, size: 50,),
 
           content: Text(

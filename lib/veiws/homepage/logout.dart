@@ -1,6 +1,9 @@
+// veiws/homepage/logout.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
+import 'package:dashboard/povider/prov.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Logout extends StatefulWidget {
   @override
@@ -28,14 +31,19 @@ class _Logout extends State<Logout> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed('Signin');
-                    },
-                    child: Text(
-                      "تسجيل الخروج",
-                      style: AppTextStyles.style18w400(context).copyWith(fontFamily: 'Almarai')
-                    ),
+                  Consumer<Signinprovider>(
+                    builder: (context, value, child) {
+                      return MaterialButton(
+                        onPressed: () async {
+                          await 
+                          Navigator.of(context).pushReplacementNamed('Signin');
+                        },
+                        child: Text(
+                          "تسجيل الخروج",
+                          style: AppTextStyles.style18w400(context).copyWith(fontFamily: 'Almarai')
+                        ),
+                      );
+                    }
                   ),
                   Icon(Icons.output),
                 ],

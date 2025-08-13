@@ -1,3 +1,4 @@
+// veiws/employee/dialog_editing.dart
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/veiws/employee/deletingDialog.dart';
 import 'package:dashboard/components/widgets/animationadding.dart';
@@ -204,7 +205,7 @@ final prov = Provider.of<Signinprovider>(context, listen: false);
                                 );
                                   await value.UpdateEmployee(id: value.employees['data'][index]['id']);
                                   Navigator.pop(context);
-                                    editSuccessDialog.showEditSuccessDialog(context, title: value.updateEmployee['message'], onpressed: () {
+                                    editSuccessDialog.showEditSuccessDialog(context,check: value.check, title: value.updateEmployee['message'], onpressed: () {
                                       Navigator.of(context).pop();
                                     },);
                                     }

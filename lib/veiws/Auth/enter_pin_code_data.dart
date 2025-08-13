@@ -1,3 +1,4 @@
+// veiws/Auth/enter_pin_code_data.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/components/widgets/animationadding.dart';
@@ -39,7 +40,7 @@ class _Pagetwodata extends State<Pagetwodata> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 3.5,
+                    // top: MediaQuery.of(context).size.height / 3.5,
                     bottom: MediaQuery.of(context).size.height / 20,
                   ),
                   child: Text(
@@ -125,16 +126,22 @@ class _Pagetwodata extends State<Pagetwodata> {
                           await value.ResendCode();
                           if (value.check) {
                             editSuccessDialog.showEditSuccessDialog(
+                              check: value.check,
                               context,
                               title: "تم إرسال الكود بنجاح",
-                              onpressed: () {},
+                              onpressed: () {
+                                Navigator.of(context).pop();
+                              },
                             );
                           } else {
                             editSuccessDialog.showEditSuccessDialog(
+                              check: value.check,
                               context,
                               title:
                                   "فشل ارسال الكود ${value.resendCode['message']}",
-                              onpressed: () {},
+                              onpressed: () {
+                                Navigator.of(context).pop();
+                              },
                             );
                           }
                         }
@@ -180,6 +187,7 @@ class _Pagetwodata extends State<Pagetwodata> {
                         await value.verify();
                         if (value.check) {
                           editSuccessDialog.showEditSuccessDialog(
+                            check: value.check,
                             context,
                             title: 'تم التسجيل بنجاح',
                             onpressed: () => Navigator.of(
@@ -188,6 +196,7 @@ class _Pagetwodata extends State<Pagetwodata> {
                           );
                         } else {
                           editSuccessDialog.showEditSuccessDialog(
+                            check: value.check,
                             context,
                             title: 'فشل تسجيل الدخول',
                             onpressed: () => Navigator.of(

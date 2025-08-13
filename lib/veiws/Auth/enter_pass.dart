@@ -1,3 +1,4 @@
+// veiws/Auth/enter_pass.dart
 import 'package:dashboard/veiws/Auth/enterpass_data.dart';
 import 'package:dashboard/veiws/Auth/forgetappbar.dart';
 import 'package:flutter/material.dart';
@@ -32,13 +33,16 @@ class _Forgetpagethree extends State<Forgetpagethree> {
                 ),
               ),
               Positioned(
-                top: 0.9,
-                left: MediaQuery.of(context).size.width/99, //0.2,
-                right: 20,
+                top: 0,
+                // 0.9,
+                left: 0,
+                // MediaQuery.of(context).size.width/99,
+                right: 0,
+                // 20,
                 child: Container(
                   width: double.infinity,
                   height: 143,
-                  child: Forgetappbar(),
+                  child: Forgetappbar(parentContext: context,),
                 ),
               ),
               Center(

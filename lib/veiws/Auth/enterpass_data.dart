@@ -1,3 +1,4 @@
+// veiws/Auth/enterpass_data.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/components/widgets/animationadding.dart';
@@ -5,16 +6,9 @@ import 'package:dashboard/povider/prov.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Enterpass extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _Enterpass();
-  }
-}
-
-class _Enterpass extends State<Enterpass> {
+class Enterpass extends StatelessWidget {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
   EditSuccessDialog editSuccessDialog = EditSuccessDialog();
 
   @override
@@ -55,7 +49,7 @@ class _Enterpass extends State<Enterpass> {
                       ),
                       child: TextFormField(
                         obscureText: value.obscure1,
-                        controller: value.password,
+                        controller: value.current_password,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -124,12 +118,14 @@ class _Enterpass extends State<Enterpass> {
                           await value.Reset();
                           if (value.check) {
                             editSuccessDialog.showEditSuccessDialog(
+                              check: value.check,
                               context,
                               title: "تم إرسال الكود بنجاح",
                               onpressed: () {},
                             );
                           } else {
                             editSuccessDialog.showEditSuccessDialog(
+                              check: value.check,
                               context,
                               title: "فشل ارسال الكود ${value.reset['message']}",
                               onpressed: () {},

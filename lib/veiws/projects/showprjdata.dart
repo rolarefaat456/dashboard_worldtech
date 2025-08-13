@@ -1,3 +1,4 @@
+// veiws/projects/showprjdata.dart
 import 'dart:io';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:path/path.dart' as path;
@@ -70,15 +71,7 @@ void Showprjdata({
                 ),
                 Text(
                   'بيانات المشروع',
-                  style: TextStyle(
-                    fontFamily: 'Regular',
-                    fontSize: MediaQuery.of(context).size.width < 600
-                        ? getResponsiveScaleFactor(context, fontSize: 14)
-                        : MediaQuery.of(context).size.width < 1200
-                        ? getResponsiveScaleFactor(context, fontSize: 20)
-                        : getResponsiveScaleFactor(context, fontSize: 22),
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppTextStyles.style22w400(context)
                 ),
                 Form(
                   child: Container(
@@ -96,8 +89,8 @@ void Showprjdata({
                                   return TextFormField(
                                     controller: nameController,
                                     textDirection: TextDirection.ltr,
-                                    enabled: value.enabledpro,
-                                    readOnly: value.readonlypro,
+                                    enabled: value.enabled,
+                                    readOnly: value.readonly,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
@@ -124,8 +117,8 @@ void Showprjdata({
                               child: Consumer<Signinprovider>(
                                 builder: (context, val, child) {
                                   return TextFormField(
-                                    enabled: val.enabledpro,
-                                    readOnly: val.readonlypro,
+                                    enabled: val.enabled,
+                                    readOnly: val.readonly,
                                     maxLines: 9,
                                     controller: descriptionController,
                                     decoration: InputDecoration(
@@ -195,75 +188,6 @@ void Showprjdata({
                                               padding: const EdgeInsets.all(
                                                 8.0,
                                               ),
-                                              child: GestureDetector(
-                                                onTap: () {},
-                                                child: Container(
-                                                  height: 24,
-                                                  width: 80,
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          10,
-                                                        ),
-                                                    color: Colors.grey.shade100,
-                                                  ),
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                            mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.close,
-                                                        size: 10,
-                                                        color: Colors.grey,
-                                                      ),
-                                                      Flexible(
-                                                        child: Tooltip(
-                                                          message: path.basename(
-                                                            image,
-                                                          ),
-                                                          child: SizedBox(
-                                                            width: 50,
-                                                            child: FittedBox(
-                                                              fit: BoxFit
-                                                                  .scaleDown,
-                                                              alignment: Alignment
-                                                                  .centerLeft,
-                                                        
-                                                              child: Text(
-                                                                softWrap: false,
-                                                                textDirection:
-                                                                    TextDirection
-                                                                        .ltr,
-                                                                path.basename(
-                                                                  image,
-                                                                ),
-                                                                maxLines: 1,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                style:
-                                                                    AppTextStyles.style8w400(
-                                                                      context,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {},
                                               child: Container(
                                                 height: 24,
                                                 width: 80,
@@ -271,9 +195,10 @@ void Showprjdata({
                                                   horizontal: 10,
                                                 ),
                                                 decoration: BoxDecoration(
-                                                  // color: Colors.grey.shade400,
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                      BorderRadius.circular(
+                                                        10,
+                                                      ),
                                                   color: Colors.grey.shade100,
                                                 ),
                                                 alignment:
@@ -297,7 +222,8 @@ void Showprjdata({
                                                         child: SizedBox(
                                                           width: 50,
                                                           child: FittedBox(
-                                                            fit: BoxFit.scaleDown,
+                                                            fit: BoxFit
+                                                                .scaleDown,
                                                             alignment: Alignment
                                                                 .centerLeft,
                                                       
@@ -324,6 +250,66 @@ void Showprjdata({
                                                     ),
                                                   ],
                                                 ),
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 24,
+                                              width: 80,
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.grey.shade100,
+                                              ),
+                                              alignment:
+                                                  Alignment.centerRight,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                        mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Icon(
+                                                    Icons.close,
+                                                    size: 10,
+                                                    color: Colors.grey,
+                                                  ),
+                                                  Flexible(
+                                                    child: Tooltip(
+                                                      message: path.basename(
+                                                        image,
+                                                      ),
+                                                      child: SizedBox(
+                                                        width: 50,
+                                                        child: FittedBox(
+                                                          fit: BoxFit.scaleDown,
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                    
+                                                          child: Text(
+                                                            softWrap: false,
+                                                            textDirection:
+                                                                TextDirection
+                                                                    .ltr,
+                                                            path.basename(
+                                                              image,
+                                                            ),
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style:
+                                                                AppTextStyles.style8w400(
+                                                                  context,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],
@@ -378,50 +364,6 @@ void Showprjdata({
                                               padding: const EdgeInsets.all(
                                                 8.0,
                                               ),
-                                              child: GestureDetector(
-                                                onTap: () {},
-                                                child: Container(
-                                                  height: 24,
-                                                  width: 80,
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          10,
-                                                        ),
-                                                    color: Colors.grey.shade100,
-                                                  ),
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.close,
-                                                        size: 10,
-                                                        color: Colors.grey,
-                                                      ),
-                                                      Text(
-                                                        'سرعة الت ...',
-                                                        textDirection:
-                                                            TextDirection.rtl,
-                                                        style: AppTextStyles.style8w400(context),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                // value.getImageFromGallery();
-                                              },
                                               child: Container(
                                                 height: 24,
                                                 width: 80,
@@ -430,7 +372,9 @@ void Showprjdata({
                                                 ),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                      BorderRadius.circular(
+                                                        10,
+                                                      ),
                                                   color: Colors.grey.shade100,
                                                 ),
                                                 alignment:
@@ -450,11 +394,45 @@ void Showprjdata({
                                                       textDirection:
                                                           TextDirection.rtl,
                                                       style: AppTextStyles.style8w400(context),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
                                                     ),
                                                   ],
                                                 ),
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 24,
+                                              width: 80,
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.grey.shade100,
+                                              ),
+                                              alignment:
+                                                  Alignment.centerRight,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Icon(
+                                                    Icons.close,
+                                                    size: 10,
+                                                    color: Colors.grey,
+                                                  ),
+                                                  Text(
+                                                    'سرعة الت ...',
+                                                    textDirection:
+                                                        TextDirection.rtl,
+                                                    style: AppTextStyles.style8w400(context),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],

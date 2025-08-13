@@ -1,3 +1,4 @@
+// veiws/employee/dialogadding.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/veiws/employee/deletingDialog.dart';
@@ -153,10 +154,12 @@ width: MediaQuery.sizeOf(context).width < 600
                               MediaQuery.of(context).size.width/4:
                               MediaQuery.of(context).size.width/5,
                               ),
-                                  child: Text(
-                                    "أدخل إسم الموظف",
-                                    textAlign: TextAlign.right,
-                                    style: AppTextStyles.style18w400(context).copyWith(color: AppColors.Grey)
+                                  child: FittedBox(
+                                    child: Text(
+                                      "أدخل إسم الموظف",
+                                      textAlign: TextAlign.right,
+                                      style: AppTextStyles.style18w400(context).copyWith(color: AppColors.Grey)
+                                    ),
                                   ),
                                 ),
                                 
@@ -183,10 +186,12 @@ width: MediaQuery.sizeOf(context).width < 600
                               MediaQuery.of(context).size.width<1200?
                               MediaQuery.of(context).size.width/4:
                               MediaQuery.of(context).size.width/5,),
-                                  child: Text(
-                                    "أدخل رقم الهاتف",
-                                    textAlign: TextAlign.right,
-                                    style: AppTextStyles.style18w400(context).copyWith(color: AppColors.Grey)
+                                  child: FittedBox(
+                                    child: Text(
+                                      "أدخل رقم الهاتف",
+                                      textAlign: TextAlign.right,
+                                      style: AppTextStyles.style18w400(context).copyWith(color: AppColors.Grey)
+                                    ),
                                   ),
                                 ),
                               ),
@@ -252,7 +257,7 @@ width: MediaQuery.sizeOf(context).width < 600
                                 );
                                   await value.AddEmployee();
                                   Navigator.pop(context);
-                                    editSuccessDialog.showEditSuccessDialog(context, title: value.employees['message'], onpressed: () {
+                                    editSuccessDialog.showEditSuccessDialog(context,check: value.check, title: value.employees['message'], onpressed: () {
                                       Navigator.of(context).pop();
                                     },);
                                     await value.Employees();                                    }

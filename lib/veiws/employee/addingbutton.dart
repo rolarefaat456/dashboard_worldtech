@@ -1,3 +1,4 @@
+// veiws/employee/addingbutton.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/povider/prov.dart';
@@ -47,9 +48,11 @@ class _Addingbutton extends State<Addingbutton> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      widget.textbotton,
-                      style: AppTextStyles.style18w400(context).copyWith(color: AppColors.White)
+                    FittedBox(
+                      child: Text(
+                        widget.textbotton,
+                        style: AppTextStyles.style18w400(context).copyWith(color: AppColors.White)
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 10),

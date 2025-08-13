@@ -1,3 +1,4 @@
+// povider/prov.dart
 import 'dart:io';
 
 import 'package:dashboard/povider/apissss.dart';
@@ -9,7 +10,7 @@ import 'package:path_provider/path_provider.dart';
 
 class Signinprovider extends ChangeNotifier {
   String baseurl =
-      "https://lightcoral-giraffe-475787.hostingersite.com/WorldTech/public";
+      "http://77.37.51.239/WorldTech/public";
   IconData iconData = Icons.visibility_off_outlined;
   bool obscure = true;
   bool obscure1 = true;
@@ -20,6 +21,7 @@ class Signinprovider extends ChangeNotifier {
    TextEditingController password = new TextEditingController();
    TextEditingController username = new TextEditingController();
    TextEditingController employeejob = new TextEditingController();
+   TextEditingController passwordnow = new TextEditingController();
   late Box tokenbox = Hive.box("token");
 
   // provider page two
@@ -43,38 +45,6 @@ class Signinprovider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  // edit project
-  bool readonlypro = true;
-  bool enabledpro = false;
-  String bottonpro = "تعديل البيانات";
-
-  void ifeditpro() {
-    if (readonly == true) {
-      enabled = true;
-      readonly = false;
-      botton = "حفظ التعديلات";
-      notifyListeners();
-    } else {
-      enabled = false;
-      readonly = true;
-      botton = "تعديل البيانات";
-    }
-    notifyListeners();
-  }
-
-  // List <Emplyeedataclass> _dataemployee = [];
-  String? prjdecoration;
-  String? name;
-  String? image;
-  String? advatages;
-
-  // List <Emplyeedataclass> _dataemployee = [];
-  String? phoneem;
-  String? namepro;
-  String? imagepro;
-  String? job;
-
   // adding image
   XFile? _image;
   set setImage(XFile? file) {
@@ -177,7 +147,7 @@ Future<void> pickImageFromGallery() async {
     notifyListeners();
   }
 
-  var check;
+  var check = false;
   var loginn;
   String token = "";
   Apissss api = Apissss();
@@ -189,7 +159,7 @@ Future<void> pickImageFromGallery() async {
   }
 
   Future login() async {
-    check = null;
+    check = false;
     setLoading(true);
 
     Object body = {"email": email.text, "password": password.text};
@@ -215,7 +185,7 @@ Future<void> pickImageFromGallery() async {
   var forget;
 
   Future forgetpassword() async {
-    check = null;
+    check = false;
     setLoading(true);
 
     Object body = {"email": email.text};
@@ -246,7 +216,7 @@ Future<void> pickImageFromGallery() async {
   );
   var vertfyy;
   Future verify() async {
-    check = null;
+    check = false;
     setLoading(true);
 
     String pinCode = opts.map((c) => c.text).join();
@@ -273,13 +243,37 @@ Future<void> pickImageFromGallery() async {
     notifyListeners();
   }
 
-  Logout() async {
-    //! post w msh 3ayz body wla header
+  var logout;
+
+  Future Logout() async {
+    check = false;
+    setLoading(true);
+
+    Object body = {};
+
+
+    try {
+      logout = await api.postapi2("$baseurl/api/logout", body, tokenbox.get("token"),);
+      print(logout);
+      if (logout != null && logout['status'] == true) {
+        await tokenbox.delete("token");
+      check = true;
+     } else {
+      check = false;
+    }
+    } catch (e) {
+      print("Error during logout: $e");
+      check = false;
+    } finally {
+      setLoading(false);
+      notifyListeners();
+    }
   }
+
 
   var reset;
   Future Reset() async {
-    check = null;
+    check = false;
     setLoading(true);
 
     Object body = {
@@ -290,7 +284,8 @@ Future<void> pickImageFromGallery() async {
     try {
       reset = await api.postapi("$baseurl/api/reset-password", body);
       print(reset);
-      if (reset != null && reset['status'] == true) {
+      
+      if ( reset != null && reset['status'] == true) {
       check = true;
     } else {
       check = false;
@@ -309,7 +304,7 @@ Future<void> pickImageFromGallery() async {
 
   var resendCode;
   Future ResendCode() async {
-    check = null;
+    check = false;
     setLoading(true);
 
     Object body = {'email': email.text};
@@ -334,13 +329,12 @@ Future<void> pickImageFromGallery() async {
   }
 
    TextEditingController first_name = new TextEditingController();
-  // new TextEditingController imagecontrol = new TextEditingController();
   String? imageadmin;
 
   var profilee;
 
   Future profile() async {
-    check = null;
+    check = false;
     setLoading(true);
 
     try {
@@ -364,7 +358,7 @@ Future<void> pickImageFromGallery() async {
   var getbanner;
 
   Future GetBanner() async {
-    check = null;
+    check = false;
     setLoading(true);
     try {
       getbanner = await api.getapi2('$baseurl/api/banners', tokenbox.get("token"),);
@@ -396,7 +390,7 @@ Future<void> pickImageFromGallery() async {
 var updateProfile;
 
   Future UpdateProfile() async {
-  check = null;
+  check = false;
   setLoading(true);
 
 
@@ -404,9 +398,9 @@ var updateProfile;
     '_method' : 'put',
     'first_name' : first_name.text,
     'last_name' : last_name.text,
-    'current_password' : current_password.text,
+    'current_password' : passwordnow.text,
     'email' : email.text ,
-    'password' : password.text,
+    'password' : password_confirmation.text,
     'password_confirmation' : password_confirmation.text
   };
 
@@ -419,10 +413,9 @@ var updateProfile;
     print(tokenbox.get("token"));
   }
     else{
-      print(username.text);
       updateProfile = await api.postapi2('$baseurl/api/profile', body, tokenbox.get("token"));
     }
-    print(updateProfile);
+    print('updateProfile ==> $updateProfile');
     if (updateProfile != null && updateProfile['status'] == true) {
       check = true;
       notifyListeners();
@@ -443,7 +436,7 @@ var updateProfile;
   var addbannerapi;
 
   Future AddBanner(BuildContext context) async {
-    check = null;
+    check = false;
     setLoading(true);
 
     Object body = {};
@@ -485,7 +478,7 @@ var updateProfile;
   bool isUpdatingBanner = false;
 
   Future UpdateBanner({required int id}) async {
-    check = null;
+    check = false;
     isUpdatingBanner = true;
     Object body = {
       '_method' : 'PUT'
@@ -523,7 +516,7 @@ var updateProfile;
     }
   }
 
-  // da5d el image elly b7zfha
+  // el image elly b7zfha
 
   Future<XFile?> downloadImageAsXFile(String imageUrl) async {
   try {
@@ -551,7 +544,7 @@ var deleteBanner;
 
   Future DeleteBanner({required int id}) async {
     print(tokenbox.get("token"));
-    check = null;
+    check = false;
     setLoading(true);
 
     Object body = {
@@ -589,7 +582,7 @@ var deleteBanner;
 
   Future Employees() async {
     print(tokenbox.get("token"));
-    check = null;
+    check = false;
     setLoading(true);
     try {
       employees = await api.getapi2(
@@ -614,7 +607,7 @@ var deleteBanner;
   var addEmployee;
 
   Future AddEmployee() async {
-  check = null;
+  check = false;
   setLoading(true);
 
 
@@ -658,11 +651,14 @@ TextEditingController employeename = new TextEditingController();
 
   void initializeControllers(int index) async {
     await Employees();
-  if (employees != null && employees['data'] != null) {
-    employeename.text = employees['data'][index]['name']?.toString() ?? '';
+  if (employees != null ) {
+    if( employees['data'] != null){
+      employeename.text = employees['data'][index]['name']?.toString() ?? '';
     employeephone.text = employees['data'][index]['phone']?.toString() ?? '';
     employeejobb.text = employees['data'][index]['email']?.toString() ?? '';
     notifyListeners();
+    }
+    
   }
 }
 
@@ -671,7 +667,7 @@ TextEditingController employeename = new TextEditingController();
   var updateEmployee;
 
   Future UpdateEmployee({required int id}) async {
-  check = null;
+  check = false;
   setLoading(true);
 
 
@@ -714,7 +710,7 @@ TextEditingController employeename = new TextEditingController();
   var deleteEmployee;
 
   Future DeleteEmployee({required int id}) async {
-  check = null;
+  check = false;
   setLoading(true);
 
 
@@ -757,7 +753,7 @@ TextEditingController employeename = new TextEditingController();
 
   Future Projects() async {
     print(tokenbox.get("token"));
-    check = null;
+    check = false;
     setLoading(true);
     try {
       projects = await api.getapi2(
@@ -788,7 +784,7 @@ TextEditingController employeename = new TextEditingController();
   }
 
   void removeFeatureController(int index) {
-    featureControllers[index].dispose(); // مهم علشان ما يحصلش memory leak
+    featureControllers[index].dispose();
     featureControllers.removeAt(index);
     notifyListeners();
   }
@@ -811,7 +807,7 @@ TextEditingController employeename = new TextEditingController();
   var addProjects;
 
   Future AddProjects() async {
-  check = null;
+  check = false;
   setLoading(true);
 
 
@@ -859,7 +855,7 @@ TextEditingController Projectsname = new TextEditingController();
   var updateProjects;
 
   Future UpdateProjects({required int id}) async {
-  check = null;
+  check = false;
   setLoading(true);
 
 
@@ -900,7 +896,7 @@ TextEditingController Projectsname = new TextEditingController();
   var deleteProject;
 
   Future DeleteProject({required int id}) async {
-  check = null;
+  check = false;
   setLoading(true);
 
 
@@ -911,7 +907,7 @@ TextEditingController Projectsname = new TextEditingController();
   };
 
   print("body: $body");
-  check = null;
+  check = false;
   setLoading(true);
 
   List<String> featuresList = featureValues;

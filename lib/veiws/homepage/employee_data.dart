@@ -1,3 +1,4 @@
+// veiws/homepage/employee_data.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class DataEmployee extends StatelessWidget {
         trailing: CircleAvatar(
           radius: MediaQuery.of(context).size.width < 600
               ? MediaQuery.of(context).size.width / 25
-              : MediaQuery.of(context).size.width < 1200
+              : MediaQuery.of(context).size.width < 1000
               ? MediaQuery.of(context).size.width / 35
               : MediaQuery.of(context).size.width / 45,
           backgroundImage: NetworkImage(image),

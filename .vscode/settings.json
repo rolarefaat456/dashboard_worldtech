@@ -13,5 +13,6 @@
         "selectindex",
         "singleco",
         "titlename"
-    ]
+    ],
+    "debug.enableStatusBarColor": false
 }

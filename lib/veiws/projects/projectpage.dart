@@ -1,3 +1,4 @@
+// veiws/projects/projectpage.dart
 import 'dart:io';
 
 import 'package:dashboard/veiws/employee/addingbutton.dart';
@@ -43,7 +44,6 @@ class _Projectpage extends State<Projectpage> {
                                       : MediaQuery.of(context).size.width < 900
                                       ? MediaQuery.of(context).size.width / 5
                                       : MediaQuery.of(context).size.width / 6,
-                                  // //200,
                                   height: MediaQuery.of(context).size.width < 600
                                       ? 40
                                       : MediaQuery.of(context).size.width < 1200

@@ -4,9 +4,12 @@ import 'package:dashboard/povider/prov.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class Swapping extends StatelessWidget {
   Color color = AppColors.White;
   int selectedIndex = 0;
+
+  Swapping({super.key});
 
 
   @override

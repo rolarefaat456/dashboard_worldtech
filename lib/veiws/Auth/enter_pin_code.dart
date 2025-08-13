@@ -1,3 +1,4 @@
+// veiws/Auth/enter_pin_code.dart
 import 'package:dashboard/veiws/Auth/forgetappbar.dart';
 import 'package:dashboard/veiws/Auth/enter_pin_code_data.dart';
 import 'package:flutter/material.dart';
@@ -32,18 +33,23 @@ class _Forgetpagetwo extends State<Forgetpagetwo> {
                 ),
               ),
               Positioned(
-                top: 0.9,
-                left: MediaQuery.of(context).size.width/99, //0.2,
-                right: 20,
+                top: 0,
+                // 0.9,
+                left: 0,
+                // MediaQuery.of(context).size.width/99,
+                right: 0,
+                // 20,
                 child: Container(
                   width: double.infinity,
                   height: 143,
-                  child: Forgetappbar(),
+                  child: Forgetappbar(parentContext: context,),
                 ),
               ),
-              Container(
-                width: double.infinity,
-                child: Pagetwodata()
+              Center(
+                child: Container(
+                  padding: EdgeInsets.only(top: 200),
+                  child: Pagetwodata()
+                )
               )
             ],
           ),

@@ -1,9 +1,12 @@
-import 'package:dashboard/components/core/utils/app_colors.dart';
+// veiws/Auth/forgetappbar.dart
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/veiws/Auth/textappbar.dart';
 import 'package:flutter/material.dart';
 
 class Forgetappbar extends StatefulWidget {
+    final BuildContext parentContext;
+
+  const Forgetappbar({super.key, required this.parentContext});
   @override
   State<Forgetappbar> createState() => _ForgetappbarState();
 }
@@ -11,7 +14,6 @@ class Forgetappbar extends StatefulWidget {
 class _ForgetappbarState extends State<Forgetappbar> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       width: double.infinity,
       child: Row(
@@ -33,23 +35,21 @@ class _ForgetappbarState extends State<Forgetappbar> {
             ],
           ),
           Expanded(child: SizedBox()),
-          Container(
-            color: AppColors.Blue,
-            child:  TextButton(
-              style: TextButton.styleFrom(
-      padding: EdgeInsets.all(50),
-    ),
-              onPressed: () {
-              Navigator.of(context).pushReplacementNamed('Signin');
+          InkWell(
+            onTap: () {
+              print("back");
+              Navigator.of(widget.parentContext).pushReplacementNamed('Signin');
             },
-            child: Text(
-              "Back to Sign in",
-              style: AppTextStyles.style20w700(
-                context,
-              ).copyWith(decoration: TextDecoration.underline),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                "Back to Sign in",
+                style: AppTextStyles.style20w700(
+                  context,
+                ).copyWith(decoration: TextDecoration.underline),
+              ),
             ),
           ),
-          )
         ],
       ),
     );

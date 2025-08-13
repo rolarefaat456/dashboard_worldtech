@@ -1,3 +1,4 @@
+// veiws/homepage/projects.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/povider/prov.dart';
@@ -29,15 +30,8 @@ class Projects extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                 child: Consumer<Signinprovider>(
                   builder: (context, value, child) {
-                    if (value.projects?['data'] == null || value.projects!['data'].isEmpty) {
-              return Center(child: Text("لا توجد مشاريع"));
-            }
-                    if (value.isLoading) {
-              return Center(child: CircularProgressIndicator());
-            }
-        
-            
-                    return GridView.builder(
+                    return value.projects == null ? Center(child: CircularProgressIndicator()) : value.projects?['data'] == null || value.projects!['data'].isEmpty ? Center(child: Text("لا توجد مشاريع")) :
+                    GridView.builder(
                       itemCount: value.projects?['data'].length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: MediaQuery.of(context).size.width < 600
@@ -47,7 +41,7 @@ class Projects extends StatelessWidget {
                             : 4,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 12,
-                        mainAxisExtent: 200,
+                        mainAxisExtent: 210,
                       ),
                       itemBuilder: (context, index) {
                         return Container(

@@ -1,3 +1,4 @@
+// veiws/homepage/announcement.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/povider/prov.dart';
@@ -30,35 +31,38 @@ class _Announcement extends State<Announcement> {
             detailes(text: "الإعلان", icon: Icons.brush_outlined),
             Consumer<Signinprovider>(
               builder: (context, value, child) {
-                print('${value.baseurl}/${value.getbanner?['data']?[0]['image']}');
-                return AspectRatio(
-                  aspectRatio: 476 / 263,
-                  child: value.isLoading ? CircularProgressIndicator() :
-                      // (value.getbanner?['data'] != null &&
-                      //     value.getbanner?['data'].isNotEmpty &&
-                      //     value.getbanner?['data']?[0]?['image'] != null &&
-                      //     value.getbanner?['data']?[0]?['image'].isNotEmpty)
-                      // ?
-                       Image.network(
-                          '${value.baseurl}/${value.getbanner?['data']?[0]?['image']}',
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child; // الصورة اتحملت
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                    : null,
-              ),
-            );
-          },
-          errorBuilder: (context, error, stackTrace) =>
-              Center(child: Image.asset(
-                          "assets/images/4d854858222d976bb3462a530ab2044a7420c313.png",
-                        ), ),
-        
-                        )
+                print(
+                  '${value.baseurl}/${value.getbanner?['data']?[0]['image']}',
+                );
+                return ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 350),
+                  child: AspectRatio(
+                    aspectRatio: 476 / 263,
+                    child: value.isLoading
+                        ? CircularProgressIndicator()
+                        : Image.network(
+                            '${value.baseurl}/${value.getbanner?['data']?[0]?['image']}',
+                            fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null)
+                                return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value:
+                                      loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) => Center(
+                              child: Image.asset(
+                                "assets/images/4d854858222d976bb3462a530ab2044a7420c313.png",
+                              ),
+                            ),
+                          ),
+                  ),
                 );
               },
             ),

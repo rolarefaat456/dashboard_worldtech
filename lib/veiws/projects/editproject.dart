@@ -1,3 +1,4 @@
+// veiws/projects/editproject.dart
 import 'dart:io';
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
@@ -75,14 +76,22 @@ void Editproject({
                                   context,
                                 ).copyWith(color: AppColors.Grey),
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(
+                                  focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(width: 0.5),
+                                    borderSide: BorderSide(
+                                      color: AppColors.Grey
+                                    )
                                   ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 20,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: AppColors.Grey
+                                    )
                                   ),
+                                  // contentPadding: EdgeInsets.symmetric(
+                                  //   horizontal: 16,
+                                  //   vertical: 20,
+                                  // ),
                                   suffix: botton == 'حفظ التعديلات'
                                       ? Text(
                                           ": عنوان المشروع",
@@ -116,15 +125,21 @@ void Editproject({
                                   context,
                                 ).copyWith(color: AppColors.Grey),
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(
+                                  focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: AppColors.Grey
+                                    )
                                   ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 16,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: AppColors.Grey
+                                    )
                                   ),
                                   suffix: botton == 'حفظ التعديلات'
                                       ? Text(
-                                          ": الوصف",
+                                          "\n : الوصف \n",
                                           style: AppTextStyles.style14w400(
                                             context,
                                           ),
@@ -133,7 +148,7 @@ void Editproject({
                                   hint: botton == 'حفظ التعديلات'
                                       ? null
                                       : Text(
-                                          " الوصف",
+                                          "\n الوصف \n",
                                           textAlign: TextAlign.start,
                                           textDirection: TextDirection.rtl,
                                           style: AppTextStyles.style16w400(
@@ -143,8 +158,6 @@ void Editproject({
                                 ),
                               ),
                             ),
-
-
                             Container(
                               margin: EdgeInsets.all(20),
                               child: Container(
@@ -173,6 +186,7 @@ void Editproject({
                                             ),
                                           ),
                                         ),
+                                        botton == 'حفظ التعديلات' ?
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
@@ -215,7 +229,7 @@ void Editproject({
                                               child: ProjectImageData(image: image,)
                                             ),
                                           ],
-                                        ),
+                                        ) : SizedBox(),
                                         Spacer(),
                                         LoadingIcon(type: "image"),
                                       ],
@@ -359,6 +373,7 @@ void Editproject({
 
                                         Navigator.pop(context);
                                         editSuccessDialog.showEditSuccessDialog(
+                                          check: value.check,
                                           context,
                                           title:
                                               value.updateProjects['message'],
@@ -382,6 +397,7 @@ void Editproject({
 
                                         Navigator.pop(context);
                                         editSuccessDialog.showEditSuccessDialog(
+                                          check: value.check,
                                           context,
                                           title: value.addProjects['message'],
                                           onpressed: () {

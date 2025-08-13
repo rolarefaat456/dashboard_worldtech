@@ -1,3 +1,4 @@
+// veiws/Auth/textappbar.dart
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -10,20 +11,14 @@ class Textappbar extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.only(
-            top:  20,
-            // 30, //MediaQuery.of(context).size.width * 0.01,
+            top:  30,
 
-            left: MediaQuery.of(context).size.width<600?
-            MediaQuery.of(context).size.width /30
-            : MediaQuery.of(context).size.width<1200?
-            MediaQuery.of(context).size.width / 55
-            : MediaQuery.of(context).size.width/60,
+            left:
+            MediaQuery.of(context).size.width /15,
 
-            right: MediaQuery.of(context).size.width<600?
+            right:
             MediaQuery.of(context).size.width /85
-            : MediaQuery.of(context).size.width<1200?
-            MediaQuery.of(context).size.width / 90
-            : MediaQuery.of(context).size.width/95,
+            ,
           ),
           child: ConstrainedBox(
             constraints: BoxConstraints(
@@ -39,7 +34,8 @@ class Textappbar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(5),
+          padding: EdgeInsets.only(top: 5, left:
+            MediaQuery.of(context).size.width /15,),
           child: Text(
             "World Tech",
             style: AppTextStyles.style24w700(context).copyWith(fontFamily: 'Almarai', fontWeight: FontWeight.bold)
@@ -51,14 +47,10 @@ class Textappbar extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.only(
-            top:  20,
-            // 30, //MediaQuery.of(context).size.width * 0.01,
-
-            left: MediaQuery.of(context).size.width<600?
-            MediaQuery.of(context).size.width /30
-            : MediaQuery.of(context).size.width<1200?
-            MediaQuery.of(context).size.width / 55
-            : MediaQuery.of(context).size.width/60,
+            top:  30,
+            left: MediaQuery.of(context).size.width<1200?
+            MediaQuery.of(context).size.width / 30
+            : MediaQuery.of(context).size.width/55,
 
             right: MediaQuery.of(context).size.width<600?
             MediaQuery.of(context).size.width /85

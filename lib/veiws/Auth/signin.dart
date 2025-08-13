@@ -1,3 +1,4 @@
+// veiws/Auth/signin.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/veiws/Auth/signdata.dart';
@@ -18,40 +19,42 @@ class _Signin extends State<Signin> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      // black background
-      body: Container(
-        color: AppColors.Black,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(15),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/images/4bdc69648c9740dc05358d7b6c4269b68d0f274a copy.jpg",
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: Container(
+          color: AppColors.Black,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded( // phone image
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "assets/images/4bdc69648c9740dc05358d7b6c4269b68d0f274a copy.jpg",
+                          ),
+                          fit: BoxFit.fill,
                         ),
-                        fit: BoxFit.fill,
                       ),
-                    ),
-                    child: SingleChildScrollView(
-                      child: IntrinsicHeight(
+                      child: SingleChildScrollView(
                         child: Column(
                           children: [
+                            // appbar
                             Container(
                               padding: EdgeInsets.all(1),
                               child: Textappbar(),
                             ),
-                            SizedBox(height: MediaQuery.of(context).size.height / 1.5),
+                            Container(height: MediaQuery.of(context).size.height / 1.7),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: ShaderMask(
                                 shaderCallback: (bounds) =>
+                                // تدريج الالوان في النص
                                     LinearGradient(
                                       colors: [
                                         Color.fromARGB(255, 255, 255, 255),
@@ -117,20 +120,19 @@ class _Signin extends State<Signin> {
                   ),
                 ),
               ),
-            ),
-
-            Expanded(
-              flex: 2,
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+              Expanded(
+                flex: 2,
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                  child: Signdata(),
                 ),
-                child: Signdata(),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

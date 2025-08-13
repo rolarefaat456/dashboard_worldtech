@@ -52,20 +52,11 @@ void deletprjdata({required BuildContext context, required int index}) {
                           onPressed: ()  async {
                             await value.DeleteProject(id: value.projects['data'][index]['id']);
                             Navigator.of(context).pop();
-                            // value.deleteproject(index);
                           },
                           child: Text(
                             "موافق",
                             textDirection: TextDirection.rtl,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: MediaQuery.of(context).size.width<600?
-                              getResponsiveScaleFactor(context, fontSize: 8):
-                              MediaQuery.of(context).size.width<1200?
-                              getResponsiveScaleFactor(context, fontSize: 14):
-                              getResponsiveScaleFactor(context, fontSize: 16),
-                              fontFamily: 'Regular',
-                            ),
+                            style: AppTextStyles.style16w400(context)
                           ),
                         );
                       },

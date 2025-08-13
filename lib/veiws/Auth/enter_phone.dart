@@ -1,10 +1,12 @@
-import 'package:dashboard/veiws/Auth/forgetappbar.dart';
+// veiws/Auth/enter_phone.dart
 import 'package:dashboard/veiws/Auth/enter_phone_data.dart';
+import 'package:dashboard/veiws/Auth/forgetappbar.dart';
 import 'package:flutter/material.dart';
 
 class Forgetscreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
+    // TODO: implement createState
     return _Forgetscreen();
   }
 }
@@ -12,10 +14,12 @@ class Forgetscreen extends StatefulWidget {
 class _Forgetscreen extends State<Forgetscreen> {
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-          // width: double.infinity,
+        width: double.infinity,
+        child: Center(
           child: Stack(
             children: [
               Center(
@@ -29,21 +33,28 @@ class _Forgetscreen extends State<Forgetscreen> {
                 ),
               ),
               Positioned(
-                top: 0.1,
-                left: MediaQuery.of(context).size.width/99, //0.2,
-                right: 40,
+                top: 0,
+                // 0.9,
+                left: 0,
+                // MediaQuery.of(context).size.width/99,
+                right: 0,
+                // 20,
                 child: Container(
                   width: double.infinity,
                   height: 143,
-                  child: Forgetappbar(),
+                  child: Forgetappbar(parentContext: context,),
                 ),
               ),
-              Container(
-                child: Forgetdata()
+              Center(
+                child: Container(
+                  padding: EdgeInsets.only(top: 200),
+                  child: Forgetdata()
+                )
               )
             ],
           ),
-        )
+        ),
+      ),
     );
   }
 }

@@ -1,8 +1,9 @@
+// veiws/mainpage/mainpage.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/veiws/banner/bannerpage.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/veiws/employee/employeepage.dart';
-import 'package:dashboard/veiws/homepage/appbar.dart';
+import 'package:dashboard/components/widgets/appbar.dart';
 import 'package:dashboard/veiws/homepage/homepage.dart';
 import 'package:dashboard/veiws/homepage/logout.dart';
 import 'package:dashboard/veiws/homepage/menu.dart';
@@ -13,12 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Mainpage extends StatefulWidget {
-  // final String title;
-
-  // const Mainpage({super.key, required this.title});
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Mainpage();
   }
 }
@@ -27,7 +24,6 @@ class _Mainpage extends State<Mainpage> {
   @override
   Widget build(BuildContext context) {
     double heightscreen = MediaQuery.of(context).size.height;
-    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
       body: Consumer<Signinprovider>(
@@ -83,7 +79,6 @@ class _Mainpage extends State<Mainpage> {
                               child: MaterialButton(
                                 onPressed: () {
                                   value.selecting(index);
-                                  // value.colorr(index);
                                 },
 
                                 child: AnimatedContainer(
@@ -122,7 +117,9 @@ class _Mainpage extends State<Mainpage> {
                                         child: Text(
                                           "${dataswap[index]['Title']}",
                                           textDirection: TextDirection.rtl,
-                                          style: AppTextStyles.style18w400(context)
+                                          style: AppTextStyles.style18w400(
+                                            context,
+                                          ),
                                         ),
                                       ),
                                       Icon(
@@ -146,7 +143,6 @@ class _Mainpage extends State<Mainpage> {
                                                     context,
                                                   ).size.width /
                                                   65,
-                                        // 20,
                                       ),
                                     ],
                                   ),

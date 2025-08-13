@@ -1,3 +1,4 @@
+// veiws/banner/bannerdata.dart
 import 'package:dashboard/components/widgets/animationadding.dart';
 import 'package:dashboard/povider/prov.dart';
 import 'package:flutter/material.dart';
@@ -15,157 +16,145 @@ class Bannerdata extends StatefulWidget {
 
 class _Bannerdata extends State<Bannerdata> {
   EditSuccessDialog editSuccessDialog = EditSuccessDialog();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<Signinprovider>(context, listen: false).GetBanner();
-    });
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     Provider.of<Signinprovider>(context, listen: false).GetBanner();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Consumer<Signinprovider>(
-        builder: (context, value, child) {
-          if (value.getbanner == null ||
-              value.getbanner['data'] == null ||
-              value.getbanner['data'].isEmpty) {
-            return Center(child: Text("No banners available"));
-          }
-          return value.isLoading
-              ? CircularProgressIndicator()
-              : GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: false,
-                  itemCount: value.getbanner['data'].length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: MediaQuery.of(context).size.width < 600
-                        ? 1
-                        : MediaQuery.of(context).size.width < 1200
-                        ? 2
-                        : 4,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    mainAxisExtent: 300,
-                  ),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width < 600
-                            ? MediaQuery.of(context).size.width / 2
-                            : MediaQuery.of(context).size.width < 1200
-                            ? MediaQuery.of(context).size.width / 2
-                            : MediaQuery.of(context).size.width / 4,
-                        height: 100,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                IconButton(
-                                  onPressed: () async {
-                                    await value.DeleteBanner(id: value.getbanner['data'][index]['id']);
-                                    print('delete is done');
-                                  },
-                                  icon: Icon(Icons.delete_outline_rounded),
-                                ),
-                              ],
-                            ),
-                            InkWell(
-                              onTap: () async {
-                                await value.pickImageFromGallery();
-                                if (value.getImage == null) return;
+    return Consumer<Signinprovider>(
+      builder: (context, value, child) {
+        
+       
+        return value.getbanner == null ?Center(child: CircularProgressIndicator()):value.getbanner['data'] == null||
+            value.getbanner['data'].isEmpty?Center(child: Text("No banners available")):  GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
 
-                                if (!mounted) return;
+                itemCount: value.getbanner['data'].length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: MediaQuery.of(context).size.width < 600
+                      ? 1
+                      : MediaQuery.of(context).size.width < 1200
+                      ? 2
+                      : 4,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  mainAxisExtent: 300,
+                ),
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width < 600
+                          ? MediaQuery.of(context).size.width / 2
+                          : MediaQuery.of(context).size.width < 1200
+                          ? MediaQuery.of(context).size.width / 2
+                          : MediaQuery.of(context).size.width / 4,
+                      height: 100,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                onPressed: () async {
+                                  await value.DeleteBanner(
+                                    id: value.getbanner['data'][index]['id'],
+                                  );
+                                  print('delete is done');
+                                },
+                                icon: Icon(Icons.delete_outline_rounded),
+                              ),
+                            ],
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              await value.pickImageFromGallery();
+                              if (value.getImage == null) return;
+
+                              if (!mounted) return;
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (_) =>
+                                    Center(child: CircularProgressIndicator()),
+                              );
+
+                              await value.UpdateBanner(
+                                id: value.getbanner['data'][index]['id'],
+                              );
+
+                              if (!mounted) return;
+
+                              Navigator.pop(context);
+
+                              await Future.delayed(Duration(milliseconds: 200));
+
+                              if (!mounted) return;
+                              print("Update response => ${value.updateBanner}");
+                              if (value.updateBanner['status'] == true) {
                                 showDialog(
                                   context: context,
-                                  barrierDismissible: false,
-                                  builder: (_) => Center(
-                                    child: CircularProgressIndicator(),
+                                  builder: (_) => AlertDialog(
+                                    title: Text(
+                                      value.updateBanner['message'] ??
+                                          'تم التحديث',
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("حسناً"),
+                                      ),
+                                    ],
                                   ),
                                 );
-
-                                await value.UpdateBanner(
-                                  id: value.getbanner['data'][index]['id'],
-                                );
-
-                                if (!mounted) return;
-
-                                Navigator.pop(context);
-
-                                await Future.delayed(
-                                  Duration(milliseconds: 200),
-                                );
-
-                                if (!mounted) return;
-                                print(
-                                  "Update response => ${value.updateBanner}",
-                                );
-                                if (value.updateBanner['status'] == true) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (_) => AlertDialog(
-                                      title: Text(
-                                        value.updateBanner['message'] ??
-                                            'تم التحديث',
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: Text("فشل التحديث"),
+                                    content: Text(
+                                      value.updateBanner['message']
+                                              ?.toString() ??
+                                          "حدث خطأ ما",
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("حسناً"),
                                       ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: Text("حسناً"),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (_) => AlertDialog(
-                                      title: Text("فشل التحديث"),
-                                      content: Text(
-                                        value.updateBanner['message']
-                                                ?.toString() ??
-                                            "حدث خطأ ما",
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: Text("حسناً"),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                  print('done');
-                                }
-                              },
-
-                              child: Container(
-                                height: 200,
-                                width: MediaQuery.of(context).size.width / 2,
-                                child:
-                                    Image.network(
-                                      '${value.getbanner['data'][index]['image']}',
-                                      fit: BoxFit.cover,
-                                    ),
+                                    ],
+                                  ),
+                                );
+                                print('done');
+                              }
+                            },
+                            child: Container(
+                              height: 200,
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Image.network(
+                                '${value.baseurl}/${value.getbanner['data'][index]['image']}',
+                                fit: BoxFit.cover,
+                                cacheWidth: 500
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                );
-        },
-      ),
+                    ),
+                  );
+                },
+              );
+      },
     );
   }
 }

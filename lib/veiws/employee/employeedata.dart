@@ -1,3 +1,4 @@
+// veiws/employee/employeedata.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/veiws/employee/deletingDialog.dart';
@@ -32,14 +33,11 @@ class _Employeedata extends State<Employeedata> {
 
       body: Consumer<Signinprovider>(
         builder: (context, value, child) {
-          if (value.employees == null ||
-              value.employees['data'] == null ||
-              value.employees['data'].isEmpty) {
-            return Center(child: Text("No employees available"));
-          }
-          return value.isLoading
-              ? Center(child: CircularProgressIndicator())
-              : GridView.builder(
+          return value.employees == null
+    ? Center(child: CircularProgressIndicator())
+    // : (value.employees['data'] is! List || (value.employees['data'] as List).isEmpty)
+        // ? Center(child: Text("No employees available")) 
+        : GridView.builder(
                   itemCount: value.employees['data'].length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: MediaQuery.of(context).size.width < 600
@@ -72,7 +70,6 @@ class _Employeedata extends State<Employeedata> {
                                   IconButton(
                                     onPressed: () {
                                       DeletingDialog(context: context, index: index);
-                                      // value.delete(index);
                                     },
                                     icon: Icon(Icons.delete_outline),
                                   ),

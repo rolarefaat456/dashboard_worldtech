@@ -1,22 +1,16 @@
+// veiws/Auth/enter_phone_data.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/components/widgets/animationadding.dart';
 import 'package:dashboard/povider/prov.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-class Forgetdata extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _Forgetdata();
-  }
-}
-
-class _Forgetdata extends State<Forgetdata> {
+class Forgetdata extends StatelessWidget {
   EditSuccessDialog editSuccessDialog = EditSuccessDialog();
+
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -29,7 +23,7 @@ class _Forgetdata extends State<Forgetdata> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 3.5,
+                    // top: MediaQuery.of(context).size.height / 90,
                     bottom: MediaQuery.of(context).size.height / 20,
                   ),
                   child: Text(
@@ -63,8 +57,6 @@ class _Forgetdata extends State<Forgetdata> {
                   ),
                     child: TextFormField(
                       controller: val.email,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -74,18 +66,16 @@ class _Forgetdata extends State<Forgetdata> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: AppColors.MorePaleGrey),
                         ),
-                        prefixIcon: Icon(Icons.phone_outlined),
+                        prefixIcon: Icon(Icons.email_outlined),
                         prefixIconColor: AppColors.Violet_Blue,
-                        hintText: "Phone Number",
+                        hintText: "Email",
                         hintStyle: AppTextStyles.style18w500(context)
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  // width: 
                   padding: EdgeInsets.symmetric(
-                    // vertical: MediaQuery.of(context).size.height/90,
                     horizontal: MediaQuery.of(context).size.width < 600
                       ? MediaQuery.of(context).size.width / 85
                       : MediaQuery.of(context).size.width < 1200
@@ -104,6 +94,7 @@ class _Forgetdata extends State<Forgetdata> {
                               await val.forgetpassword();
                               if (val.check) {
                                 editSuccessDialog.showEditSuccessDialog(
+                                  check: val.check,
                                   context,
                                   title: "تم إرسال الكود بنجاح",
                                   onpressed: () => Navigator.of(
@@ -112,6 +103,7 @@ class _Forgetdata extends State<Forgetdata> {
                                 );
                               } else {
                                 editSuccessDialog.showEditSuccessDialog(
+                                  check: val.check,
                                   context,
                                   title:
                                       "فشل ارسال الكود ${val.forget['message']}",

@@ -1,3 +1,4 @@
+// veiws/homepage/adminprofile.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/components/widgets/animationadding.dart';
@@ -14,6 +15,8 @@ void ShowAlert({
   required int index,
   VoidCallback? onConfirm,
 }) {
+  final prov = Provider.of<Signinprovider>(context, listen: false);
+  prov.first_name = TextEditingController(text: name);
   GlobalKey<FormState> formkey = GlobalKey();
   EditSuccessDialog editSuccessDialog = EditSuccessDialog();
   showDialog(
@@ -24,8 +27,6 @@ void ShowAlert({
         child: AlertDialog(
           backgroundColor: Colors.white,
           content: Container(
-            // width: 800,
-            // height: 1000,
             child: Column(
               children: [
                 Row(
@@ -119,23 +120,20 @@ void ShowAlert({
                             Row(
                               children: [
                                 Expanded(
-                                  child: TextFormField(
-                                    enabled: value.enabled,
-                                    readOnly: value.readonly,
-                                    controller: value.first_name,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(width: 0.5),
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 10),
+                                    child: TextFormField(
+                                      enabled: value.enabled,
+                                      readOnly: value.readonly,
+                                      controller: value.first_name,
+                                      style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          borderSide: BorderSide(width: 0.5),
+                                        ),
+                                        
                                       ),
-                                      // label: Text(
-                                      //   "$name",
-                                      //   style: TextStyle(
-                                      //     fontFamily: 'AlmaraiR',
-                                      //     //rgba(29, 59, 26, 1)
-                                      //     color: Color.fromARGB(255, 29, 59, 26),
-                                      //   ),
-                                      // ),
                                     ),
                                   ),
                                 ),
@@ -144,19 +142,13 @@ void ShowAlert({
                                     enabled: value.enabled,
                                     readOnly: value.readonly,
                                     controller: value.last_name,
+                                    style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide: BorderSide(width: 0.5),
                                       ),
-                                      // label: Text(
-                                      //   "$name",
-                                      //   style: TextStyle(
-                                      //     fontFamily: 'AlmaraiR',
-                                      //     //rgba(29, 59, 26, 1)
-                                      //     color: Color.fromARGB(255, 29, 59, 26),
-                                      //   ),
-                                      // ),
+                                      
                                     ),
                                   ),
                                 ),
@@ -165,21 +157,19 @@ void ShowAlert({
                                     enabled: value.enabled,
                                     readOnly: value.readonly,
                                     controller: value.first_name,
+                                    style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide: BorderSide(width: 0.5),
                                       ),
-                                      label: Text(
-                                        "$name",
-                                        style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen)
-                                      ),
+                                      
                                     ),
                                   ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
                               child: Text(
-                                "رقم الهاتف :",
+                                "الايميل :",
                                 textDirection: TextDirection.rtl,
                                 style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai', color: AppColors.Blue)
                               ),
@@ -203,12 +193,53 @@ void ShowAlert({
                                 style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai', color: AppColors.Blue)
                               ),
                             ),
+                            value.botton == "حفظ التعديلات" ? Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.symmetric(vertical: 10),
+                                  child: TextFormField(
+                                    enabled: value.enabled,
+                                    readOnly: value.readonly,
+                                    controller: value.passwordnow,
+                                    style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
+                                    decoration: InputDecoration(
+                                      hint: Text(
+                                        'current password',
+                                        style: AppTextStyles.style14w400(context),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                TextFormField(
+                                  enabled: value.enabled,
+                                  readOnly: value.readonly,
+                                  controller: value.password_confirmation,
+                                  style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
+                                  decoration: InputDecoration(
+                                    hint: Text(
+                                      'confirmation password',
+                                      style: AppTextStyles.style14w400(context),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ):
                             TextFormField(
                               enabled: value.enabled,
                               readOnly: value.readonly,
                               controller: value.password,
                               style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
                               decoration: InputDecoration(
+                                hint: Text(
+                                  '******',
+                                  style: AppTextStyles.style14w400(context),
+                                ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -243,6 +274,7 @@ void ShowAlert({
                                       if (value.check)
                                       {
                                         editSuccessDialog.showEditSuccessDialog(
+                                          check: value.check,
                                         context,
                                         title: 'تم التعديل بنجاح',
                                         onpressed: () {
@@ -251,6 +283,7 @@ void ShowAlert({
                                       );
                                       }else{
                                         editSuccessDialog.showEditSuccessDialog(
+                                          check: value.check,
                                         context,
                                         title: 'فشل التعديل',
                                         onpressed: () {

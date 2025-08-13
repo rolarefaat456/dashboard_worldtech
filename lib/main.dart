@@ -1,3 +1,6 @@
+// main.dart
+import 'dart:io';
+
 import 'package:dashboard/veiws/banner/bannerpage.dart';
 import 'package:dashboard/veiws/employee/employeepage.dart';
 import 'package:dashboard/veiws/homepage/homepage.dart';
@@ -11,6 +14,7 @@ import 'package:dashboard/veiws/Auth/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -19,9 +23,9 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  // Directory dir = await getApplicationDocumentsDirectory();
+  Directory dir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(
-    // dir.path
+    dir.path
   );
   await Hive.openBox('language');
   await Hive.openBox('token');

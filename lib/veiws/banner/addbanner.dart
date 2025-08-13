@@ -1,9 +1,7 @@
-
+// veiws/banner/addbanner.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/components/widgets/animationadding.dart';
-
-
 import 'package:dashboard/povider/prov.dart';
 import 'package:flutter/material.dart';
 
@@ -70,28 +68,27 @@ void Addbanner({
                                 style: AppTextStyles.style14w400(context)
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 24,
-                                    width: 80,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      // color: Colors.grey.shade400,
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.grey.shade100,
-                                    ),
-                                    alignment: Alignment.centerRight,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.end,
+                            //   children: [
+                            //     Padding(
+                            //       padding: const EdgeInsets.all(8.0),
+                            //       child: Container(
+                            //         height: 24,
+                            //         width: 80,
+                            //         padding: EdgeInsets.symmetric(
+                            //           horizontal: 10,
+                            //         ),
+                            //         decoration: BoxDecoration(
+                            //           borderRadius: BorderRadius.circular(10),
+                            //           color: Colors.grey.shade100,
+                            //         ),
+                            //         alignment: Alignment.centerRight,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // Spacer(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -133,6 +130,7 @@ void Addbanner({
                             await value.AddBanner(context);
                             if (value.check) {
                               editSuccessDialog.showEditSuccessDialog(
+                                check: value.check,
                               context,
                               title: 'تمت الاضافه بنجاح',
                               onpressed: () {
@@ -141,6 +139,7 @@ void Addbanner({
                             );
                             }else{
                               editSuccessDialog.showEditSuccessDialog(
+                                check: value.check,
                               context,
                               title: 'لم تتم الاضافه',
                               onpressed: () {

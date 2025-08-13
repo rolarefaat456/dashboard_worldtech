@@ -1,3 +1,4 @@
+// veiws/Auth/signdata.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/components/widgets/animationadding.dart';
@@ -6,14 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-class Signdata extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _Signdata();
-  }
-}
-
-class _Signdata extends State<Signdata> {
+class Signdata extends StatelessWidget {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   EditSuccessDialog editSuccessDialog = EditSuccessDialog();
@@ -69,7 +63,7 @@ class _Signdata extends State<Signdata> {
                             ),
                           ),
                           hintText: "User Email",
-                          prefixIcon: Icon(Icons.phone_outlined),
+                          prefixIcon: Icon(Icons.email_outlined),
                           prefixIconColor: AppColors.Violet_Blue,
                           hintStyle: AppTextStyles.style18w500(context),
                         ),
@@ -149,6 +143,7 @@ class _Signdata extends State<Signdata> {
                           await value.login();
                           if (value.check) {
                             editSuccessDialog.showEditSuccessDialog(
+                              check: value.check,
                               context,
                               title: 'تم التسجيل بنجاح',
                               onpressed: () => Navigator.of(
@@ -157,6 +152,7 @@ class _Signdata extends State<Signdata> {
                             );
                           } else {
                             editSuccessDialog.showEditSuccessDialog(
+                              check: value.check,
                               context,
                               title: 'فشل تسجيل الدخول',
                               onpressed: () => Navigator.of(

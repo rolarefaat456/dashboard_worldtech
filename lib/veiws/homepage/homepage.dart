@@ -1,3 +1,4 @@
+// veiws/homepage/homepage.dart
 import 'package:dashboard/povider/prov.dart';
 import 'package:dashboard/veiws/homepage/Employees.dart';
 import 'package:dashboard/veiws/homepage/announcement.dart';
@@ -92,7 +93,12 @@ Widget HomeType(BuildContext context) {
                   ? MediaQuery.of(context).size.width / 3
                   : MediaQuery.of(context).size.width / 3.5,
               margin: EdgeInsets.only(bottom: 10),
-              height: MediaQuery.of(context).size.height /2.55,
+              // height: MediaQuery.of(context).size.height /2.2,
+              height: MediaQuery.of(context).size.width < 900
+                  // ? 300
+                  ? MediaQuery.sizeOf(context).height/3
+                  : 
+              340,
               child: Announcement(),
             ),
             Container(
@@ -106,7 +112,6 @@ Widget HomeType(BuildContext context) {
           ],
         ),
         Container(
-              
                 width: MediaQuery.of(context).size.width < 1200
               ? MediaQuery.of(context).size.width / 2.5
               : MediaQuery.of(context).size.width / 2,

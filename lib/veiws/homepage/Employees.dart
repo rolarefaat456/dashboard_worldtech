@@ -1,3 +1,4 @@
+// veiws/homepage/Employees.dart
 import 'package:dashboard/povider/prov.dart';
 import 'package:dashboard/veiws/homepage/announcement.dart';
 import 'package:dashboard/veiws/homepage/employee_data.dart';
@@ -34,17 +35,12 @@ class Employees extends StatelessWidget {
           Expanded(
             child: Consumer<Signinprovider>(
               builder: (context, value, child) {
-                if (value.employees == null ||
-                    value.employees?['data'] == null ||
-                    value.employees?['data'].isEmpty) {
-                  return const Center(child: Text("لا يوجد موظفين"));
-                }
-                if (value.isLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+                
                 print("Employees data: ${value.employees}");
                 
-                return ListView.builder(
+                return value.employees == null? Center(child: CircularProgressIndicator()): value.employees?['data'] == null ||
+                    value.employees?['data'].isEmpty? Center(child: Text("لا يوجد موظفين")):
+                ListView.builder(
                   itemCount: value.employees?['data']?.length,
                   itemBuilder: (context, index) {
                     return DataEmployee(

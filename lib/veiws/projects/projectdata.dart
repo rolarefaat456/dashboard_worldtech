@@ -1,3 +1,4 @@
+// veiws/projects/projectdata.dart
 
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/veiws/projects/deletprjdata.dart';
@@ -34,13 +35,8 @@ class _Projectdata extends State<Projectdata> {
       backgroundColor: Colors.white,
       body: Consumer<Signinprovider>(
         builder: (context, value, child) {
-          if (value.projects == null ||
-              value.projects['data'] == null ||
-              value.projects['data'].isEmpty) {
-            return Center(child: Text("No Projects available"));
-          }
-          return value.isLoading
-              ? CircularProgressIndicator()
+          return value.projects == null ? CircularProgressIndicator() : value.projects['data'] == null ||
+              value.projects['data'].isEmpty ? Center(child: Text("No Projects available"))
               :GridView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: false,
@@ -95,14 +91,7 @@ class _Projectdata extends State<Projectdata> {
                             margin: EdgeInsets.only(top: 10),
                             child: Text(
                               value.projects['data'][index]['title'],
-                              style: TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: MediaQuery.of(context).size.width<600?
-                              getResponsiveScaleFactor(context, fontSize: 8):
-                              MediaQuery.of(context).size.width<1200?
-                              getResponsiveScaleFactor(context, fontSize: 14):
-                              getResponsiveScaleFactor(context, fontSize: 16),
-                              ),
+                              style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai')
                             ),
                           ),
                           Container(
