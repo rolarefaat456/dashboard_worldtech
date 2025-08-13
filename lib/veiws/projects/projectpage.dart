@@ -1,10 +1,12 @@
 // veiws/projects/projectpage.dart
 import 'dart:io';
 
+import 'package:dashboard/povider/prov.dart';
 import 'package:dashboard/veiws/employee/addingbutton.dart';
 import 'package:dashboard/veiws/projects/editproject.dart';
 import 'package:dashboard/veiws/projects/projectdata.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Projectpage extends StatefulWidget {
   @override
@@ -15,6 +17,14 @@ class Projectpage extends StatefulWidget {
 }
 
 class _Projectpage extends State<Projectpage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<Signinprovider>(context, listen: false).Projects();
+    });
+  }
   @override
   Widget build(BuildContext context) {
 

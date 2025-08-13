@@ -16,10 +16,10 @@ void dialogadding({
   required String phone,
   String? job,
   VoidCallback? onConfirm,
-  required int index
+  required int index,
 }) {
-GlobalKey<FormState> formkey = GlobalKey();
-EditSuccessDialog editSuccessDialog = EditSuccessDialog();
+  GlobalKey<FormState> formkey = GlobalKey();
+  EditSuccessDialog editSuccessDialog = EditSuccessDialog();
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -32,7 +32,6 @@ EditSuccessDialog editSuccessDialog = EditSuccessDialog();
             // height: 1000,
             child: Column(
               children: [
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -40,7 +39,7 @@ EditSuccessDialog editSuccessDialog = EditSuccessDialog();
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      icon: Icon(Icons.close)
+                      icon: Icon(Icons.close),
                     ),
                     Consumer<Signinprovider>(
                       builder: (context, value, child) {
@@ -54,60 +53,57 @@ EditSuccessDialog editSuccessDialog = EditSuccessDialog();
                     ),
                   ],
                 ),
-                Text(
-                  'إضافة موظف',
-                  style: AppTextStyles.style24w400(context),
-                ),
+                Text('إضافة موظف', style: AppTextStyles.style24w400(context)),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(500),
-                    border: Border.all(width: 0.2,color: Colors.black)
+                    border: Border.all(width: 0.2, color: Colors.black),
                   ),
-                  margin: EdgeInsets.symmetric(horizontal:
-                  MediaQuery.of(context).size.width<600?
-                              MediaQuery.of(context).size.width/50:
-                              MediaQuery.of(context).size.width<1200?
-                              MediaQuery.of(context).size.width/60:
-                              MediaQuery.of(context).size.width/70,
-                  vertical: 20),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width < 600
+                        ? MediaQuery.of(context).size.width / 50
+                        : MediaQuery.of(context).size.width < 1200
+                        ? MediaQuery.of(context).size.width / 60
+                        : MediaQuery.of(context).size.width / 70,
+                    vertical: 20,
+                  ),
                   child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                        maxHeight: 232,
-                        maxWidth: 232
-                      ),
+                    constraints: BoxConstraints(maxHeight: 232, maxWidth: 232),
                     child: Stack(
                       children: [
                         AspectRatio(
                           aspectRatio: 1,
                           child: CircleAvatar(
-                            
                             backgroundColor: Colors.white,
-                            child: Icon(CupertinoIcons.person,size: 60,),
+                            child: Icon(CupertinoIcons.person, size: 60),
                           ),
                         ),
                         Positioned(
-                            top: 180,
-                            left: 180,
-                            child: Container(
-                              decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(500),
-                      border: Border.all(width: 0.2,color: Colors.black)
-                    ),
-                              child: Consumer<Signinprovider>(
-                                builder: (context, value, child) {
-                                  return CircleAvatar(
+                          top: 180,
+                          left: 180,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(500),
+                              border: Border.all(
+                                width: 0.2,
+                                color: Colors.black,
+                              ),
+                            ),
+                            child: Consumer<Signinprovider>(
+                              builder: (context, value, child) {
+                                return CircleAvatar(
                                   backgroundColor: Colors.white,
                                   child: IconButton(
                                     onPressed: () {
                                       value.pickImageFromGallery();
                                     },
-                                    icon: Icon(Icons.add)
+                                    icon: Icon(Icons.add),
                                   ),
                                 );
-                                },
-                              ),
-                            )
-                        )
+                              },
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -115,11 +111,12 @@ EditSuccessDialog editSuccessDialog = EditSuccessDialog();
                 Form(
                   key: formkey,
                   child: Container(
-width: MediaQuery.sizeOf(context).width < 600
-                    ?MediaQuery.sizeOf(context).width/1.5
-                    :MediaQuery.sizeOf(context).width < 900
-                    ?MediaQuery.sizeOf(context).width/2
-                    :MediaQuery.sizeOf(context).width/2.5,                    child: Consumer<Signinprovider>(
+                    width: MediaQuery.sizeOf(context).width < 600
+                        ? MediaQuery.sizeOf(context).width / 1.5
+                        : MediaQuery.sizeOf(context).width < 900
+                        ? MediaQuery.sizeOf(context).width / 2
+                        : MediaQuery.sizeOf(context).width / 2.5,
+                    child: Consumer<Signinprovider>(
                       builder: (context, value, child) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,32 +135,29 @@ width: MediaQuery.sizeOf(context).width < 600
                                   vertical: 20,
                                 ),
                                 // prefixText: nameController.text,
-                                prefixStyle: TextStyle(
-                                  fontFamily: 'AlmaraiR',
-                                  fontSize: MediaQuery.of(context).size.width<600?
-                              getResponsiveScaleFactor(context, fontSize: 12):
-                              MediaQuery.of(context).size.width<1200?
-                              getResponsiveScaleFactor(context, fontSize: 14):
-                              getResponsiveScaleFactor(context, fontSize: 16),
-                                  color: Colors.black,
-                                ),
+                                prefixStyle: AppTextStyles.style16w400(context),
                                 label: Container(
-                                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width<600?
-                              MediaQuery.of(context).size.width/1.9:
-                              MediaQuery.of(context).size.width<1200?
-                              MediaQuery.of(context).size.width/4:
-                              MediaQuery.of(context).size.width/5,
-                              ),
+                                  margin: EdgeInsets.only(
+                                    left:
+                                        MediaQuery.of(context).size.width < 600
+                                        ? MediaQuery.of(context).size.width /
+                                              1.9
+                                        : MediaQuery.of(context).size.width <
+                                              1200
+                                        ? MediaQuery.of(context).size.width / 4
+                                        : MediaQuery.of(context).size.width / 5,
+                                  ),
                                   child: FittedBox(
                                     child: Text(
                                       "أدخل إسم الموظف",
                                       textAlign: TextAlign.right,
-                                      style: AppTextStyles.style18w400(context).copyWith(color: AppColors.Grey)
+                                      style: AppTextStyles.style18w400(
+                                        context,
+                                      ).copyWith(color: AppColors.Grey),
                                     ),
                                   ),
                                 ),
-                                
-                              )
+                              ),
                             ),
 
                             SizedBox(height: 20),
@@ -181,16 +175,23 @@ width: MediaQuery.sizeOf(context).width < 600
                                   vertical: 20,
                                 ),
                                 label: Container(
-                                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width<600?
-                              MediaQuery.of(context).size.width/1.9:
-                              MediaQuery.of(context).size.width<1200?
-                              MediaQuery.of(context).size.width/4:
-                              MediaQuery.of(context).size.width/5,),
+                                  margin: EdgeInsets.only(
+                                    left:
+                                        MediaQuery.of(context).size.width < 600
+                                        ? MediaQuery.of(context).size.width /
+                                              1.9
+                                        : MediaQuery.of(context).size.width <
+                                              1200
+                                        ? MediaQuery.of(context).size.width / 4
+                                        : MediaQuery.of(context).size.width / 5,
+                                  ),
                                   child: FittedBox(
                                     child: Text(
                                       "أدخل رقم الهاتف",
                                       textAlign: TextAlign.right,
-                                      style: AppTextStyles.style18w400(context).copyWith(color: AppColors.Grey)
+                                      style: AppTextStyles.style18w400(
+                                        context,
+                                      ).copyWith(color: AppColors.Grey),
                                     ),
                                   ),
                                 ),
@@ -211,29 +212,27 @@ width: MediaQuery.sizeOf(context).width < 600
                                   vertical: 20,
                                 ),
                                 // prefixText: jobController.text,
-                                prefixStyle: TextStyle(
-                                  fontFamily: 'AlmaraiR',
-                                  fontSize: MediaQuery.of(context).size.width<600?
-                              getResponsiveScaleFactor(context, fontSize: 12):
-                              MediaQuery.of(context).size.width<1200?
-                              getResponsiveScaleFactor(context, fontSize: 14):
-                              getResponsiveScaleFactor(context, fontSize: 16),
-                                  color: Color.fromARGB(255, 29, 59, 26),
-                                ),
+                                prefixStyle: AppTextStyles.style16w400(context).copyWith( color: AppColors.DarkGreen),
                                 label: Container(
-                                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width<600?
-                              MediaQuery.of(context).size.width/1.9:
-                              MediaQuery.of(context).size.width<1200?
-                              MediaQuery.of(context).size.width/4:
-                              MediaQuery.of(context).size.width/5,),
+                                  margin: EdgeInsets.only(
+                                    left:
+                                        MediaQuery.of(context).size.width < 600
+                                        ? MediaQuery.of(context).size.width /
+                                              1.9
+                                        : MediaQuery.of(context).size.width <
+                                              1200
+                                        ? MediaQuery.of(context).size.width / 4
+                                        : MediaQuery.of(context).size.width / 5,
+                                  ),
                                   child: Text(
                                     "أدخل الوظيفة",
                                     textAlign: TextAlign.right,
-                                    style: AppTextStyles.style18w400(context).copyWith(color: AppColors.Grey)
+                                    style: AppTextStyles.style18w400(
+                                      context,
+                                    ).copyWith(color: AppColors.Grey),
                                   ),
                                 ),
                               ),
-                              
                             ),
 
                             Center(
@@ -247,33 +246,32 @@ width: MediaQuery.sizeOf(context).width < 600
                                 ),
                                 child: MaterialButton(
                                   onPressed: () async {
-                                    if ( formkey.currentState!.validate()){
+                                    if (formkey.currentState!.validate()) {
                                       showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (_) => Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                );
-                                  await value.AddEmployee();
-                                  Navigator.pop(context);
-                                    editSuccessDialog.showEditSuccessDialog(context,check: value.check, title: value.employees['message'], onpressed: () {
-                                      Navigator.of(context).pop();
-                                    },);
-                                    await value.Employees();                                    }
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (_) => Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      );
+                                      await value.AddEmployee();
+                                      Navigator.pop(context);
+                                      editSuccessDialog.showEditSuccessDialog(
+                                        context,
+                                        check: value.check,
+                                        title: value.employees['message'],
+                                        onpressed: () {
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        },
+                                      );
+                                      await value.Employees();
+                                    }
                                   },
                                   child: Text(
                                     "إضافة الموظف",
                                     textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: MediaQuery.of(context).size.width<600?
-                              getResponsiveScaleFactor(context, fontSize: 16):
-                              MediaQuery.of(context).size.width<1200?
-                              getResponsiveScaleFactor(context, fontSize: 22):
-                              getResponsiveScaleFactor(context, fontSize: 24),
-                                      fontFamily: 'Regular',
-                                    ),
+                                    style: AppTextStyles.style24w400(context).copyWith(color: AppColors.White)
                                   ),
                                 ),
                               ),

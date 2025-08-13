@@ -12,13 +12,10 @@ class Textappbar extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(
             top:  30,
+            left: MediaQuery.of(context).size.width < 350 ?
+            MediaQuery.of(context).size.width /15 : MediaQuery.of(context).size.width / 50,
 
-            left:
-            MediaQuery.of(context).size.width /15,
 
-            right:
-            MediaQuery.of(context).size.width /85
-            ,
           ),
           child: ConstrainedBox(
             constraints: BoxConstraints(

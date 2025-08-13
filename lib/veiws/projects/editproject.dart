@@ -287,7 +287,7 @@ void Editproject({
                                                     ? MediaQuery.sizeOf(
                                                             context,
                                                           ).width /
-                                                          2
+                                                          5
                                                     : MediaQuery.sizeOf(
                                                             context,
                                                           ).width <
@@ -295,11 +295,11 @@ void Editproject({
                                                     ? MediaQuery.sizeOf(
                                                             context,
                                                           ).width /
-                                                          2.5
+                                                          4
                                                     : MediaQuery.sizeOf(
                                                             context,
                                                           ).width /
-                                                          3,
+                                                          5,
                                                 child: TextFormField(
                                                   controller: value
                                                       .featureControllers[index],

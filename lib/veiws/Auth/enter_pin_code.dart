@@ -1,5 +1,5 @@
 // veiws/Auth/enter_pin_code.dart
-import 'package:dashboard/veiws/Auth/forgetappbar.dart';
+import 'package:dashboard/components/widgets/forgetappbar.dart';
 import 'package:dashboard/veiws/Auth/enter_pin_code_data.dart';
 import 'package:flutter/material.dart';
 

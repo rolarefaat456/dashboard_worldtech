@@ -25,7 +25,6 @@ class _Homepage extends State<Homepage> {
       Provider.of<Signinprovider>(context, listen: false).Employees();
       Provider.of<Signinprovider>(context, listen: false).Projects();
       Provider.of<Signinprovider>(context, listen: false).profile();
-
     });
   }
   @override
@@ -59,7 +58,7 @@ Widget HomeType(BuildContext context) {
           margin: EdgeInsets.only(bottom: 10),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height /2.79,
+              minHeight: MediaQuery.of(context).size.height /2.35,
               maxWidth:  MediaQuery.of(context).size.width / 1.5,
             ),
             child: AspectRatio(
@@ -91,7 +90,7 @@ Widget HomeType(BuildContext context) {
           children: [
             Container(
               width: MediaQuery.of(context).size.width < 1200
-                  ? MediaQuery.of(context).size.width / 3
+                  ? MediaQuery.of(context).size.width / 3.4
                   : MediaQuery.of(context).size.width / 3.5,
               margin: EdgeInsets.only(bottom: 10),
               height: MediaQuery.of(context).size.width < 900

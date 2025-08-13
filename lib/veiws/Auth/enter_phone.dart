@@ -1,6 +1,6 @@
 // veiws/Auth/enter_phone.dart
 import 'package:dashboard/veiws/Auth/enter_phone_data.dart';
-import 'package:dashboard/veiws/Auth/forgetappbar.dart';
+import 'package:dashboard/components/widgets/forgetappbar.dart';
 import 'package:flutter/material.dart';
 
 class Forgetscreen extends StatefulWidget {

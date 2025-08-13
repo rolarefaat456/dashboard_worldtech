@@ -396,8 +396,8 @@ var updateProfile;
 
   Object body = {
     '_method' : 'put',
-    'first_name' : first_name.text,
-    'last_name' : last_name.text,
+    'name' : first_name.text,
+    // 'last_name' : last_name.text,
     'current_password' : passwordnow.text,
     'email' : email.text ,
     'password' : password_confirmation.text,
@@ -550,7 +550,7 @@ var deleteBanner;
     };
 
     try {
-      deleteBanner = await api.postapi2(
+      deleteBanner = await api.deleteApi(
         "$baseurl/api/banners/$id",
         body,
         tokenbox.get("token")

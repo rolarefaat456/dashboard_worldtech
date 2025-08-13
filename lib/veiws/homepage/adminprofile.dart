@@ -16,6 +16,7 @@ void ShowAlert({
   VoidCallback? onConfirm,
 }) {
   final prov = Provider.of<Signinprovider>(context, listen: false);
+  prov.profile();
   prov.first_name = TextEditingController(text: name);
   GlobalKey<FormState> formkey = GlobalKey();
   EditSuccessDialog editSuccessDialog = EditSuccessDialog();
@@ -117,31 +118,10 @@ void ShowAlert({
                               ),
                             ),
                             value.enabled ? 
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 10),
-                                    child: TextFormField(
-                                      enabled: value.enabled,
-                                      readOnly: value.readonly,
-                                      controller: value.first_name,
-                                      style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(10),
-                                          borderSide: BorderSide(width: 0.5),
-                                        ),
-                                        
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: TextFormField(
+                            TextFormField(
                                     enabled: value.enabled,
                                     readOnly: value.readonly,
-                                    controller: value.last_name,
+                                    controller: value.first_name,
                                     style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
@@ -150,10 +130,45 @@ void ShowAlert({
                                       ),
                                       
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ):TextFormField(
+                                  )
+                            // Row(
+                            //   children: [
+                            //     Expanded(
+                            //       child: Container(
+                            //         margin: EdgeInsets.symmetric(horizontal: 10),
+                            //         child: TextFormField(
+                            //           enabled: value.enabled,
+                            //           readOnly: value.readonly,
+                            //           controller: value.first_name,
+                            //           style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
+                            //           decoration: InputDecoration(
+                            //             border: OutlineInputBorder(
+                            //               borderRadius: BorderRadius.circular(10),
+                            //               borderSide: BorderSide(width: 0.5),
+                            //             ),
+                                        
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     Expanded(
+                            //       child: TextFormField(
+                            //         enabled: value.enabled,
+                            //         readOnly: value.readonly,
+                            //         controller: value.last_name,
+                            //         style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
+                            //         decoration: InputDecoration(
+                            //           border: OutlineInputBorder(
+                            //             borderRadius: BorderRadius.circular(10),
+                            //             borderSide: BorderSide(width: 0.5),
+                            //           ),
+                                      
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // )
+                            :TextFormField(
                                     enabled: value.enabled,
                                     readOnly: value.readonly,
                                     controller: value.first_name,
@@ -291,7 +306,7 @@ void ShowAlert({
                                         },
                                       );
                                       }
-                                      
+                                      await value.profile();
                                     }
                                   }
                                 },

@@ -19,13 +19,13 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  Directory dir = await getApplicationDocumentsDirectory();
+  // await SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
+  // Directory dir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(
-    dir.path
+    // dir.path
   );
   await Hive.openBox('language');
   await Hive.openBox('token');

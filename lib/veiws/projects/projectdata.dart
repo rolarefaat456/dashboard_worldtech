@@ -1,6 +1,7 @@
 // veiws/projects/projectdata.dart
 
 import 'package:dashboard/components/core/utils/app_text_style.dart';
+import 'package:dashboard/components/widgets/empty_page.dart';
 import 'package:dashboard/veiws/projects/deletprjdata.dart';
 import 'package:dashboard/povider/prov.dart';
 import 'package:dashboard/veiws/projects/showprjdata.dart';
@@ -35,7 +36,7 @@ class _Projectdata extends State<Projectdata> {
           return value.projects == null
               ? CircularProgressIndicator()
               : value.projects['data'] == null || value.projects['data'].isEmpty
-              ? Center(child: Text("No Projects available"))
+              ? Center(child: EmptyPage())
               : GridView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: false,

@@ -1,3 +1,5 @@
+// veiws/projects/deletprjdata.dart
+import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/povider/prov.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +58,7 @@ void deletprjdata({required BuildContext context, required int index}) {
                           child: Text(
                             "موافق",
                             textDirection: TextDirection.rtl,
-                            style: AppTextStyles.style16w400(context)
+                            style: AppTextStyles.style16w400(context).copyWith(color: AppColors.White)
                           ),
                         );
                       },

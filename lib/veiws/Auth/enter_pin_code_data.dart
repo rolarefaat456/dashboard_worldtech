@@ -152,16 +152,7 @@ class _Pagetwodata extends State<Pagetwodata> {
                         ),
                         child: Text(
                           "Resend the Code",
-                          style: TextStyle(
-                            //rgba(100, 128, 247, 1)
-                            color: Color.fromARGB(255, 100, 128, 247),
-                            fontSize: MediaQuery.of(context).size.width < 600
-                                ? getResponsiveScaleFactor(context, fontSize: 14)
-                                : MediaQuery.of(context).size.width < 1200
-                                ? getResponsiveScaleFactor(context, fontSize: 14)
-                                : getResponsiveScaleFactor(context, fontSize: 16),
-                            fontFamily: 'Noto_Kufi',
-                          ),
+                          style: AppTextStyles.style14w500(context).copyWith(color: AppColors.Violet_Blue)
                         ),
                       ),
                     );

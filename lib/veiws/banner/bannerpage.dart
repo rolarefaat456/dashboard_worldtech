@@ -1,3 +1,4 @@
+// veiws/banner/bannerpage.dart
 import 'package:dashboard/veiws/banner/addbanner.dart';
 import 'package:dashboard/veiws/banner/bannerdata.dart';
 import 'package:dashboard/veiws/employee/addingbutton.dart';
@@ -32,7 +33,7 @@ class _Bannerpage extends State<Bannerpage> {
                           : MediaQuery.of(context).size.width < 1200
                           ? MediaQuery.of(context).size.width / 1.5
                           : MediaQuery.of(context).size.width / 1.4,
-                      height: 600,
+                      height: MediaQuery.sizeOf(context).height/1.3,
                       child: Bannerdata(),
                     ),
                     Container(width: 1, color: Colors.black38),

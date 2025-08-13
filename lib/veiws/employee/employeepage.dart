@@ -16,6 +16,14 @@ class EmployeePage extends StatefulWidget {
 
 class _EmployeePage extends State<EmployeePage> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<Signinprovider>(context, listen: false).Employees();
+    });
+  }
+  @override
   Widget build(BuildContext context) {
 
     // TODO: implement build

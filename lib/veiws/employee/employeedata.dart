@@ -1,6 +1,7 @@
 // veiws/employee/employeedata.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:dashboard/components/core/utils/app_text_style.dart';
+import 'package:dashboard/components/widgets/empty_page.dart';
 import 'package:dashboard/veiws/employee/deletingDialog.dart';
 import 'package:dashboard/veiws/employee/dialog_editing.dart';
 import 'package:dashboard/povider/prov.dart';
@@ -35,8 +36,8 @@ class _Employeedata extends State<Employeedata> {
         builder: (context, value, child) {
           return value.employees == null
     ? Center(child: CircularProgressIndicator())
-    // : (value.employees['data'] is! List || (value.employees['data'] as List).isEmpty)
-        // ? Center(child: Text("No employees available")) 
+    : (value.employees['data'] is! List || (value.employees['data'] as List).isEmpty)
+        ? Center(child: EmptyPage()) 
         : GridView.builder(
                   itemCount: value.employees['data'].length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

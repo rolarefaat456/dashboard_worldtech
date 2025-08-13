@@ -1,5 +1,6 @@
 // components/widgets/appbar.dart
 import 'package:dashboard/components/core/utils/app_text_style.dart';
+import 'package:dashboard/components/widgets/empty_page.dart';
 import 'package:dashboard/veiws/homepage/adminprofile.dart';
 import 'package:dashboard/povider/prov.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,22 @@ class Appbarr extends StatefulWidget {
 
 class _AppbarrState extends State<Appbarr> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<Signinprovider>(context, listen: false).profile();
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Consumer<Signinprovider>(
       builder: (context, value, child) {
-        return value.isLoading
-            ? Center(child: CircularProgressIndicator())
+        return value.profilee == null
+    ? Center(child: CircularProgressIndicator())
+    : value.profilee['data'] == null
+        ? Center(child: EmptyPage()) 
             : Container(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +69,9 @@ class _AppbarrState extends State<Appbarr> {
                                           (value.profilee?['data'] != null &&
                                               value.profilee['data']['image'] !=
                                                   null &&
-                                              value.profilee['data']['image'].isNotEmpty)
+                                              value
+                                                  .profilee['data']['image']
+                                                  .isNotEmpty)
                                           ? '${value.baseurl}/${value.profilee['data']['image']}'
                                           : '',
                                       name:
@@ -110,11 +123,15 @@ class _AppbarrState extends State<Appbarr> {
                                       margin: EdgeInsets.symmetric(
                                         horizontal: 10,
                                       ),
-                                      child: Text(
-                                        "Mohammed Hanafy",
-                                        style: AppTextStyles.style18w400(
-                                          context,
-                                        ),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            value.profilee['data']['name'],
+                                            style: AppTextStyles.style18w400(
+                                              context,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],

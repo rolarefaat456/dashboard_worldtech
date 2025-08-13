@@ -1,5 +1,6 @@
 // veiws/banner/bannerdata.dart
 import 'package:dashboard/components/widgets/animationadding.dart';
+import 'package:dashboard/components/widgets/empty_page.dart';
 import 'package:dashboard/povider/prov.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,14 +17,14 @@ class Bannerdata extends StatefulWidget {
 
 class _Bannerdata extends State<Bannerdata> {
   EditSuccessDialog editSuccessDialog = EditSuccessDialog();
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-  //     Provider.of<Signinprovider>(context, listen: false).GetBanner();
-  //   });
-  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<Signinprovider>(context, listen: false).GetBanner();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _Bannerdata extends State<Bannerdata> {
         
        
         return value.getbanner == null ?Center(child: CircularProgressIndicator()):value.getbanner['data'] == null||
-            value.getbanner['data'].isEmpty?Center(child: Text("No banners available")):  GridView.builder(
+            value.getbanner['data'].isEmpty?Center(child: EmptyPage()):  GridView.builder(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
 
@@ -70,6 +71,22 @@ class _Bannerdata extends State<Bannerdata> {
                                   await value.DeleteBanner(
                                     id: value.getbanner['data'][index]['id'],
                                   );
+                                  if (value.check){
+                                    editSuccessDialog.showEditSuccessDialog(
+                                  context,
+                                  title: 'تم الحذف بنجاح' ,
+                                    check: value.check,
+                                    onpressed: () => Navigator.pop(context),
+                                );
+                                  }
+                                  else{
+                                    editSuccessDialog.showEditSuccessDialog(
+                                  context,
+                                  title: 'فشل الحذف ' ,
+                                    check: value.check,
+                                    onpressed: () => Navigator.pop(context),
+                                );
+                                  }
                                   print('delete is done');
                                 },
                                 icon: Icon(Icons.delete_outline_rounded),
@@ -102,38 +119,18 @@ class _Bannerdata extends State<Bannerdata> {
                               if (!mounted) return;
                               print("Update response => ${value.updateBanner}");
                               if (value.updateBanner['status'] == true) {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    title: Text(
-                                      value.updateBanner['message'] ??
-                                          'تم التحديث',
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text("حسناً"),
-                                      ),
-                                    ],
-                                  ),
+                                editSuccessDialog.showEditSuccessDialog(
+                                  context,
+                                  title: 'تم التعديل بنجاح' ,
+                                    check: value.check,
+                                    onpressed: () => Navigator.pop(context),
                                 );
                               } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    title: Text("فشل التحديث"),
-                                    content: Text(
-                                      value.updateBanner['message']
-                                              ?.toString() ??
-                                          "حدث خطأ ما",
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text("حسناً"),
-                                      ),
-                                    ],
-                                  ),
+                                editSuccessDialog.showEditSuccessDialog(
+                                  context,
+                                  title: 'فشل التعديل '  ,
+                                    check: value.check,
+                                    onpressed: () => Navigator.pop(context),
                                 );
                                 print('done');
                               }
