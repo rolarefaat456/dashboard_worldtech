@@ -456,7 +456,6 @@ var updateProfile;
         tokenbox.get("token"),
       );
       print(tokenbox.get("token"),);
-      check = addbannerapi;
       print('addbannerapi is $addbannerapi');
       if (addbannerapi != null && addbannerapi['status'] == true) {
       check = true;

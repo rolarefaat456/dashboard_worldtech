@@ -128,6 +128,7 @@ void Addbanner({
                         return  MaterialButton(
                           onPressed: () async {
                             await value.AddBanner(context);
+                            print('add banner is ${value.addbannerapi}');
                             if (value.check) {
                               editSuccessDialog.showEditSuccessDialog(
                                 check: value.check,

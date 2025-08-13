@@ -68,7 +68,7 @@ class _Employeedata extends State<Employeedata> {
                                 children: [
                                   Expanded(child: SizedBox()),
                                   IconButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       DeletingDialog(context: context, index: index);
                                     },
                                     icon: Icon(Icons.delete_outline),
