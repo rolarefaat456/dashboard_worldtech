@@ -32,7 +32,7 @@ class Textappbar extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(top: 5, left:
-            MediaQuery.of(context).size.width /15,),
+            MediaQuery.of(context).size.width /20,),
           child: Text(
             "World Tech",
             style: AppTextStyles.style24w700(context).copyWith(fontFamily: 'Almarai', fontWeight: FontWeight.bold)
@@ -45,9 +45,9 @@ class Textappbar extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(
             top:  30,
-            left: MediaQuery.of(context).size.width<1200?
-            MediaQuery.of(context).size.width / 30
-            : MediaQuery.of(context).size.width/55,
+            left: MediaQuery.of(context).size.width<800?
+            MediaQuery.of(context).size.width / 22 : MediaQuery.of(context).size.width < 1200 ? MediaQuery.of(context).size.width/35
+            : MediaQuery.of(context).size.width/45,
 
             right: MediaQuery.of(context).size.width<600?
             MediaQuery.of(context).size.width /85
