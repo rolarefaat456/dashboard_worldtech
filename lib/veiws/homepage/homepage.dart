@@ -69,13 +69,14 @@ Widget HomeType(BuildContext context) {
         ),
         Container(
               width: MediaQuery.of(context).size.width / 1.5,
-              height: 510,
-              
+              // height: 510,
+              height: MediaQuery.sizeOf(context).height/2,
               child: Employees(),
             ),
             Container(
                 width: MediaQuery.of(context).size.width / 1.5,
-              height: 800,
+              // height: 800,
+              height: MediaQuery.sizeOf(context).height/1.1,
               child: Projects(),
             ),
       ],
@@ -104,7 +105,8 @@ Widget HomeType(BuildContext context) {
                   ? MediaQuery.of(context).size.width / 3
                   : MediaQuery.of(context).size.width / 4,
               margin: EdgeInsets.only(bottom: 10),
-              height: 510,
+              // height: 510,
+              height: MediaQuery.sizeOf(context).height/2,
               child: Employees(),
             ),
           ],
@@ -113,7 +115,8 @@ Widget HomeType(BuildContext context) {
                 width: MediaQuery.of(context).size.width < 1200
               ? MediaQuery.of(context).size.width / 2.5
               : MediaQuery.of(context).size.width / 2,
-              height: 800,
+              // height: 800,
+              height: MediaQuery.sizeOf(context).height/1.1,
             
               child: Projects(),
             ),

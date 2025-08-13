@@ -26,11 +26,14 @@ class _Signin extends State<Signin> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Expanded( // phone image
+              Expanded(
+                // phone image
                 child: Container(
                   padding: EdgeInsets.all(15),
                   child: ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height,
+                    ),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -49,12 +52,14 @@ class _Signin extends State<Signin> {
                               padding: EdgeInsets.all(1),
                               child: Textappbar(),
                             ),
-                            Container(height: MediaQuery.of(context).size.height / 1.7),
+                            Container(
+                              height: MediaQuery.of(context).size.height / 1.7,
+                            ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: ShaderMask(
                                 shaderCallback: (bounds) =>
-                                // تدريج الالوان في النص
+                                    // تدريج الالوان في النص
                                     LinearGradient(
                                       colors: [
                                         Color.fromARGB(255, 255, 255, 255),

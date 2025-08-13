@@ -7,10 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class Signdata extends StatelessWidget {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   EditSuccessDialog editSuccessDialog = EditSuccessDialog();
+
+  Signdata({super.key});
 
   @override
   Widget build(BuildContext context) {

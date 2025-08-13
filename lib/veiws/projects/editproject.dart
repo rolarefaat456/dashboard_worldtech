@@ -34,7 +34,7 @@ void Editproject({
         child: AlertDialog(
           backgroundColor: Colors.white,
           content: Container(
-            width: 800,
+            width: MediaQuery.of(context).size.width < 600 ? MediaQuery.of(context).size.width/2.3 : MediaQuery.of(context).size.width< 900 ? MediaQuery.of(context).size.width/2 : MediaQuery.of(context).size.width/1.8,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -61,7 +61,7 @@ void Editproject({
                 Form(
                   key: formkey,
                   child: Container(
-                    width: 600,
+                    width: MediaQuery.of(context).size.width < 600 ? MediaQuery.of(context).size.width/2.5 : MediaQuery.of(context).size.width< 900 ? MediaQuery.of(context).size.width/2.2 : MediaQuery.of(context).size.width/2 ,
                     child: Consumer<Signinprovider>(
                       builder: (context, value, child) {
                         return Column(
@@ -69,29 +69,27 @@ void Editproject({
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
-                              margin: EdgeInsets.all(20),
+                              margin: EdgeInsets.symmetric(vertical: 20),
                               child: TextFormField(
                                 controller: value.title,
-                                style: AppTextStyles.style14w400(
-                                  context,
-                                ).copyWith(color: AppColors.Grey),
+                                style: botton == 'حفظ التعديلات'
+                                    ? AppTextStyles.style14w400(context)
+                                    : AppTextStyles.style14w400(
+                                        context,
+                                      ).copyWith(color: AppColors.Grey),
                                 decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
-                                      color: AppColors.Grey
-                                    )
+                                      color: AppColors.Grey,
+                                    ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
-                                      color: AppColors.Grey
-                                    )
+                                      color: AppColors.Grey,
+                                    ),
                                   ),
-                                  // contentPadding: EdgeInsets.symmetric(
-                                  //   horizontal: 16,
-                                  //   vertical: 20,
-                                  // ),
                                   suffix: botton == 'حفظ التعديلات'
                                       ? Text(
                                           ": عنوان المشروع",
@@ -119,23 +117,26 @@ void Editproject({
                               child: TextFormField(
                                 maxLines: 9,
                                 controller: value.description,
+
                                 textDirection: TextDirection.ltr,
                                 textAlign: TextAlign.left,
-                                style: AppTextStyles.style14w400(
-                                  context,
-                                ).copyWith(color: AppColors.Grey),
+                                style: botton == 'حفظ التعديلات'
+                                    ? AppTextStyles.style14w400(context)
+                                    : AppTextStyles.style14w400(
+                                        context,
+                                      ).copyWith(color: AppColors.Grey),
                                 decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
-                                      color: AppColors.Grey
-                                    )
+                                      color: AppColors.Grey,
+                                    ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
-                                      color: AppColors.Grey
-                                    )
+                                      color: AppColors.Grey,
+                                    ),
                                   ),
                                   suffix: botton == 'حفظ التعديلات'
                                       ? Text(
@@ -161,41 +162,59 @@ void Editproject({
                             Container(
                               margin: EdgeInsets.all(20),
                               child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    width: 600,
-                                    height: 222,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 0.2,
-                                        color: AppColors.GreyDarkMore,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Text(
-                                            "صورة للمشروع\n",
-                                            textAlign: TextAlign.end,
-                                            style: AppTextStyles.style14w400(
-                                              context,
-                                            ),
-                                          ),
+                                padding: EdgeInsets.all(10),
+                                height: 222,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 0.2,
+                                    color: AppColors.GreyDarkMore,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.white,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                        "صورة للمشروع\n",
+                                        textAlign: TextAlign.end,
+                                        style: AppTextStyles.style14w400(
+                                          context,
                                         ),
-                                        botton == 'حفظ التعديلات' ?
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(
-                                                8.0,
+                                      ),
+                                    ),
+                                    botton == 'حفظ التعديلات'
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.all(
+                                                  8.0,
+                                                ),
+                                                child: Container(
+                                                  height: 24,
+                                                  width: 80,
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          10,
+                                                        ),
+                                                    color: Colors.grey.shade100,
+                                                  ),
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: ProjectImageData(
+                                                    image: image,
+                                                  ),
+                                                ),
                                               ),
-                                              child: Container(
+                                              Container(
                                                 height: 24,
                                                 width: 80,
                                                 padding: EdgeInsets.symmetric(
@@ -203,43 +222,27 @@ void Editproject({
                                                 ),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                        10,
-                                                      ),
+                                                      BorderRadius.circular(10),
                                                   color: Colors.grey.shade100,
                                                 ),
                                                 alignment:
                                                     Alignment.centerRight,
-                                                child: ProjectImageData( image: image,),
+                                                child: ProjectImageData(
+                                                  image: image,
+                                                ),
                                               ),
-                                            ),
-                                            Container(
-                                              height: 24,
-                                              width: 80,
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 10,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: Colors.grey.shade100,
-                                              ),
-                                              alignment:
-                                                  Alignment.centerRight,
-                                              child: ProjectImageData(image: image,)
-                                            ),
-                                          ],
-                                        ) : SizedBox(),
-                                        Spacer(),
-                                        LoadingIcon(type: "image"),
-                                      ],
-                                    ),
-                                  )
+                                            ],
+                                          )
+                                        : SizedBox(),
+                                    Spacer(),
+                                    LoadingIcon(type: "image"),
+                                  ],
+                                ),
+                              ),
                             ),
                             Container(
                               margin: EdgeInsets.all(20),
                               padding: EdgeInsets.all(10),
-                              width: 600,
                               height: 222,
                               decoration: BoxDecoration(
                                 border: Border.all(
@@ -258,21 +261,8 @@ void Editproject({
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Container(
-                                    margin: EdgeInsets.only(
-                                      left:
-                                          MediaQuery.of(context).size.width <
-                                              600
-                                          ? MediaQuery.of(context).size.width /
-                                                2.3
-                                          : MediaQuery.of(context).size.width <
-                                                1200
-                                          ? MediaQuery.of(context).size.width /
-                                                2.9
-                                          : MediaQuery.of(context).size.width /
-                                                3.6,
-                                    ),
                                     child: Text(
-                                      ": مميزات",
+                                      "\n : مميزات",
                                       style: AppTextStyles.style14w400(context),
                                     ),
                                   ),
@@ -284,13 +274,32 @@ void Editproject({
                                       itemBuilder: (context, index) {
                                         return Padding(
                                           padding: const EdgeInsets.symmetric(
-                                            vertical: 4.0,
+                                            vertical: 4,
                                           ),
                                           child: Row(
                                             children: [
                                               Container(
-                                                width: MediaQuery.sizeOf(context).width < 600?
-                                                MediaQuery.sizeOf(context).width/2:MediaQuery.sizeOf(context).width < 900?MediaQuery.sizeOf(context).width /2.5:MediaQuery.sizeOf(context).width /3,
+                                                width:
+                                                    MediaQuery.sizeOf(
+                                                          context,
+                                                        ).width <
+                                                        600
+                                                    ? MediaQuery.sizeOf(
+                                                            context,
+                                                          ).width /
+                                                          2
+                                                    : MediaQuery.sizeOf(
+                                                            context,
+                                                          ).width <
+                                                          900
+                                                    ? MediaQuery.sizeOf(
+                                                            context,
+                                                          ).width /
+                                                          2.5
+                                                    : MediaQuery.sizeOf(
+                                                            context,
+                                                          ).width /
+                                                          3,
                                                 child: TextFormField(
                                                   controller: value
                                                       .featureControllers[index],
@@ -300,16 +309,18 @@ void Editproject({
                                                     hintText:
                                                         'الميزة ${index + 1}',
                                                     hintStyle:
-                                                        AppTextStyles.style8w400(
+                                                        AppTextStyles.style14w400(
                                                           context,
                                                         ),
                                                     border: OutlineInputBorder(
+
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                             10,
                                                           ),
                                                       borderSide: BorderSide(
                                                         width: 0.5,
+                                                        color: AppColors.Grey,
                                                       ),
                                                     ),
                                                     contentPadding:
@@ -431,9 +442,7 @@ void Editproject({
 }
 
 class LoadingIcon extends StatelessWidget {
-  const LoadingIcon({
-    super.key, required this.type,
-  });
+  const LoadingIcon({super.key, required this.type});
   final String type;
 
   @override
@@ -441,86 +450,57 @@ class LoadingIcon extends StatelessWidget {
     return Consumer<Signinprovider>(
       builder: (context, value, child) {
         return Row(
-          mainAxisAlignment:
-              MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CircleAvatar(
               radius: 20,
-              backgroundColor:
-                  AppColors.Violet_Blue,
+              backgroundColor: AppColors.Violet_Blue,
               child: IconButton(
                 onPressed: () {
-                  if ( type == 'image' ){
+                  if (type == 'image') {
                     value.pickImageFromGallery();
-                  }
-                  else{
+                  } else {
                     value.addFeatureController();
                   }
                 },
-                icon: Icon(
-                  Icons.file_upload_outlined,
-                  color: Colors.white,
-                ),
+                icon: Icon(Icons.file_upload_outlined, color: Colors.white),
               ),
             ),
           ],
         );
-      }
+      },
     );
   }
 }
 
 class ProjectImageData extends StatelessWidget {
-  ProjectImageData({
-    super.key, required this.image 
-  });
+  ProjectImageData({super.key, required this.image});
 
   final File image;
-  
+
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:
-          MainAxisAlignment
-              .spaceBetween,
-      mainAxisSize:
-          MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          Icons.close,
-          size: 10,
-          color: Colors.grey,
-        ),
+        Icon(Icons.close, size: 10, color: Colors.grey),
         Flexible(
           child: Tooltip(
-            message: path
-                .basename(
-                  image.path,
-                ),
+            message: path.basename(image.path),
             child: SizedBox(
               width: 50,
               child: FittedBox(
-                fit: BoxFit
-                    .scaleDown,
-                alignment: Alignment
-                    .centerLeft,
-    
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+
                 child: Text(
                   softWrap: false,
-                  textDirection:
-                      TextDirection
-                          .ltr,
-                  path.basename(
-                    image.path,
-                  ),
+                  textDirection: TextDirection.ltr,
+                  path.basename(image.path),
                   maxLines: 1,
-                  overflow:
-                      TextOverflow
-                          .ellipsis,
-                  style:
-                      AppTextStyles.style8w400(
-                        context,
-                      ),
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.style8w400(context),
                 ),
               ),
             ),

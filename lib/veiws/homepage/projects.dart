@@ -46,8 +46,8 @@ class Projects extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Container(
                           padding: EdgeInsets.only(top: 24),
-                          width: 180,
-                          height: 244,
+                          // width: 180,
+                          // height: 244,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(24),
                             border: Border.all(width: 1, color: Colors.black38),
@@ -73,14 +73,17 @@ class Projects extends StatelessWidget {
                                   style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Tajawal', color: AppColors.betweenblackandbabyblack)
                                 ),
                               ),
+                              Spacer(),
                               ConstrainedBox(
                                 constraints: BoxConstraints(
                                   maxHeight: 109
                                 ),
                                 child: AspectRatio(
                                   aspectRatio: 220/280,
-                                  child:  Image.network('${value.baseurl}/${value.projects?['data']?[index]?['image']}', errorBuilder: (context, error, stackTrace) => Image.asset("assets/images/Mobile.png", fit: BoxFit.fill),) 
-                                ),
+                                  child:  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network('${value.baseurl}/${value.projects?['data']?[index]?['image']}', errorBuilder: (context, error, stackTrace) => Image.asset("assets/images/Mobile.png", fit: BoxFit.fill),),
+                                  )),
                               ),
                             ],
                           ),
