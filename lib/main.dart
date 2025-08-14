@@ -1,6 +1,5 @@
 // main.dart
 import 'dart:io';
-
 import 'package:dashboard/veiws/banner/bannerpage.dart';
 import 'package:dashboard/veiws/employee/employeepage.dart';
 import 'package:dashboard/veiws/homepage/homepage.dart';
@@ -16,6 +15,8 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:window_manager/window_manager.dart';
+// import 'package:device_preview/device_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,9 +30,31 @@ void main() async {
   );
   await Hive.openBox('language');
   await Hive.openBox('token');
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    await windowManager.ensureInitialized();
+
+    WindowOptions options = const WindowOptions(
+      // size: Size(800, 600),
+      center: true,
+      // backgroundColor: Colors.transparent,
+      // titleBarStyle: TitleBarStyle.normal,
+    );
+
+    windowManager.waitUntilReadyToShow(options, () async {
+      await windowManager.show();
+      // await windowManager.setResizable(false);
+      // await windowManager.setMinimizable(false);
+      await windowManager.setMinimumSize(const Size(850, 700));
+      // await windowManager.setMaximizable(false); 
+    });
+  }
   runApp( ChangeNotifierProvider(
     create: (context) => Signinprovider(),
-    child: MyApp(),
+    // child: DevicePreview(
+    // enabled: true,
+    // builder: (context) => 
+    child:  MyApp()
+  // ),
   ));
 }
 

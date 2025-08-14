@@ -6,78 +6,78 @@ class Textappbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MediaQuery.of(context).size.width < 600 ?
-      Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(
-            top:  30,
-            left: MediaQuery.of(context).size.width < 350 ?
-            MediaQuery.of(context).size.width /15 : MediaQuery.of(context).size.width / 50,
-
-
-          ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: 56,
-              maxWidth: 56
-            ),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.asset(
-                "assets/images/8e98292dd204dc6c96f366fc80a3374404c2ccf7.png",
+    return MediaQuery.of(context).size.width < 600
+        ? Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(
+                  top: 30,
+                  left: MediaQuery.of(context).size.width < 350
+                      ? MediaQuery.of(context).size.width / 15
+                      : MediaQuery.of(context).size.width / 50,
+                ),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 56, maxWidth: 56),
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.asset(
+                      "assets/images/8e98292dd204dc6c96f366fc80a3374404c2ccf7.png",
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 5, left:
-            MediaQuery.of(context).size.width /20,),
-          child: Text(
-            "World Tech",
-            style: AppTextStyles.style24w700(context).copyWith(fontFamily: 'Almarai', fontWeight: FontWeight.bold)
-          ),
-        ),
-      ],
-    )
-      : Row(
-      children: [
-        Container(
-          margin: EdgeInsets.only(
-            top:  30,
-            left: MediaQuery.of(context).size.width<800?
-            MediaQuery.of(context).size.width / 22 : MediaQuery.of(context).size.width < 1200 ? MediaQuery.of(context).size.width/35
-            : MediaQuery.of(context).size.width/45,
-
-            right: MediaQuery.of(context).size.width<600?
-            MediaQuery.of(context).size.width /85
-            : MediaQuery.of(context).size.width<1200?
-            MediaQuery.of(context).size.width / 90
-            : MediaQuery.of(context).size.width/95,
-          ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: 56,
-              maxWidth: 56
-            ),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.asset(
-                "assets/images/8e98292dd204dc6c96f366fc80a3374404c2ccf7.png",
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 5,
+                  left: MediaQuery.of(context).size.width / 20,
+                ),
+                child: Text(
+                  "World Tech",
+                  style: AppTextStyles.style24w700(context).copyWith(
+                    fontFamily: 'Almarai',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(
-            top: 20, 
-          ),
-          child: Text(
-            "World Tech",
-            style: AppTextStyles.style24w700(context).copyWith(fontFamily: 'Almarai')
-          ),
-        ),
-      ],
-    );
+            ],
+          )
+        : Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(
+                  top: 30,
+                  left: MediaQuery.of(context).size.width < 800
+                      ? MediaQuery.of(context).size.width / 22
+                      : MediaQuery.of(context).size.width < 1200
+                      ? MediaQuery.of(context).size.width / 35 : MediaQuery.of(context).size.width < 1500 ? MediaQuery.of(context).size.width / 45 
+                      : MediaQuery.of(context).size.width < 1700 ? MediaQuery.of(context).size.width / 55 : MediaQuery.of(context).size.width < 2000 ? MediaQuery.of(context).size.width / 65 : MediaQuery.of(context).size.width / 95 ,
+
+                  right: MediaQuery.of(context).size.width < 600
+                      ? MediaQuery.of(context).size.width / 85
+                      : MediaQuery.of(context).size.width < 1200
+                      ? MediaQuery.of(context).size.width / 90
+                      : MediaQuery.of(context).size.width / 95,
+                ),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 56, maxWidth: 56),
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.asset(
+                      "assets/images/8e98292dd204dc6c96f366fc80a3374404c2ccf7.png",
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: Text(
+                  "World Tech",
+                  style: AppTextStyles.style24w700(
+                    context,
+                  ).copyWith(fontFamily: 'Almarai'),
+                ),
+              ),
+            ],
+          );
   }
 }

@@ -128,7 +128,7 @@ class _Signin extends State<Signin> {
               Expanded(
                 flex: 2,
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 15),
+                  margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white,

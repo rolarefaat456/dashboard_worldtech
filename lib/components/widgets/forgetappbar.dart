@@ -1,4 +1,4 @@
-// veiws/Auth/forgetappbar.dart
+// components/widgets/forgetappbar.dart
 import 'package:dashboard/components/core/utils/app_text_style.dart';
 import 'package:dashboard/veiws/Auth/textappbar.dart';
 import 'package:flutter/material.dart';
