@@ -1,4 +1,5 @@
 // povider/prov.dart
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dashboard/povider/apissss.dart';
@@ -9,19 +10,18 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Signinprovider extends ChangeNotifier {
-  String baseurl =
-      "http://77.37.51.239/WorldTech/public";
+  String baseurl = "http://77.37.51.239/WorldTech/public";
   IconData iconData = Icons.visibility_off_outlined;
   bool obscure = true;
   bool obscure1 = true;
   bool obscure2 = true;
   IconData iconData1 = Icons.visibility_off_outlined;
   IconData iconData2 = Icons.visibility_off_outlined;
-   TextEditingController email = new TextEditingController();
-   TextEditingController password = new TextEditingController();
-   TextEditingController username = new TextEditingController();
-   TextEditingController employeejob = new TextEditingController();
-   TextEditingController passwordnow = new TextEditingController();
+  TextEditingController email = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+  TextEditingController username = new TextEditingController();
+  TextEditingController employeejob = new TextEditingController();
+  TextEditingController passwordnow = new TextEditingController();
   late Box tokenbox = Hive.box("token");
 
   // provider page two
@@ -45,25 +45,27 @@ class Signinprovider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
   // adding image
   XFile? _image;
   set setImage(XFile? file) {
-  _image = file;
-  notifyListeners();
-}
-XFile? get getImage => _image;
-
-Future<void> pickImageFromGallery() async {
-  final picker = ImagePicker();
-  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-  if (pickedFile != null) {
-    _image = pickedFile;
+    _image = file;
     notifyListeners();
-  } else {
-    print('No image selected.');
   }
-}
+
+  XFile? get getImage => _image;
+
+  Future<void> pickImageFromGallery() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      _image = pickedFile;
+      notifyListeners();
+    } else {
+      print('No image selected.');
+    }
+  }
 
   // animationadding
   int selectindexbotton = 0;
@@ -149,7 +151,6 @@ Future<void> pickImageFromGallery() async {
 
   var check = false;
   var loginn;
-  String token = "";
   Apissss api = Apissss();
   bool isLoading = false;
 
@@ -162,17 +163,18 @@ Future<void> pickImageFromGallery() async {
     check = false;
     setLoading(true);
 
+
     Object body = {"email": email.text, "password": password.text};
 
     try {
       loginn = await api.postapi("$baseurl/api/login", body);
       print('loginn is $loginn');
       if (loginn != null && loginn['status'] == true) {
-      tokenbox.put("token", loginn['data']['token']);
-      check = true;
-    } else {
-      check = false;
-    }
+        tokenbox.put("token", loginn['data']['token']);
+        check = true;
+      } else {
+        check = false;
+      }
     } catch (e) {
       print("Error during login: $e");
       check = false;
@@ -188,8 +190,8 @@ Future<void> pickImageFromGallery() async {
     check = false;
     setLoading(true);
 
+
     Object body = {"email": email.text};
-    print(email.text);
 
     try {
       forget = await api.postapi("$baseurl/api/forget-password", body);
@@ -210,7 +212,7 @@ Future<void> pickImageFromGallery() async {
     }
   }
 
-  List <TextEditingController> opts = List.generate(
+  List<TextEditingController> opts = List.generate(
     4,
     (_) => new TextEditingController(),
   );
@@ -221,11 +223,19 @@ Future<void> pickImageFromGallery() async {
 
     String pinCode = opts.map((c) => c.text).join();
 
+
     Object body = {'email': email.text, 'otp': pinCode};
 
     try {
       vertfyy = await api.postapi("$baseurl/api/verify-otp", body);
       print("vertfyy is $vertfyy");
+      
+    if (vertfyy != null && vertfyy['status'] == true) {
+      check = true;
+    } else {
+      check = false;
+    }
+    notifyListeners();
     } catch (e) {
       print("Error : $e");
       check = false;
@@ -234,13 +244,6 @@ Future<void> pickImageFromGallery() async {
       notifyListeners();
     }
 
-    if (vertfyy != null && vertfyy['status'] == true) {
-      check = true;
-    } else {
-      check = false;
-    }
-
-    notifyListeners();
   }
 
   var logout;
@@ -251,30 +254,35 @@ Future<void> pickImageFromGallery() async {
 
     Object body = {};
 
-
     try {
-      logout = await api.postapi2("$baseurl/api/logout", body, tokenbox.get("token"),);
+      logout = await api.postapi2(
+        "$baseurl/api/logout",
+        body,
+        tokenbox.get("token"),
+      );
       print(logout);
       if (logout != null && logout['status'] == true) {
         await tokenbox.delete("token");
-      check = true;
-     } else {
-      check = false;
-    }
+        check = true;
+      } else {
+        check = false;
+      }
     } catch (e) {
       print("Error during logout: $e");
       check = false;
     } finally {
+      email.clear();
+      password.clear();
       setLoading(false);
       notifyListeners();
     }
   }
 
-
   var reset;
   Future Reset() async {
     check = false;
     setLoading(true);
+
 
     Object body = {
       'email': email.text,
@@ -284,13 +292,13 @@ Future<void> pickImageFromGallery() async {
     try {
       reset = await api.postapi("$baseurl/api/reset-password", body);
       print(reset);
-      
-      if ( reset != null && reset['status'] == true) {
-      check = true;
-    } else {
-      check = false;
-    }
-    notifyListeners();
+
+      if (reset != null && reset['status'] == true) {
+        check = true;
+      } else {
+        check = false;
+      }
+      notifyListeners();
     } catch (e) {
       print("Error : $e");
       check = false;
@@ -298,8 +306,6 @@ Future<void> pickImageFromGallery() async {
       setLoading(false);
       notifyListeners();
     }
-
-    
   }
 
   var resendCode;
@@ -311,6 +317,13 @@ Future<void> pickImageFromGallery() async {
     try {
       resendCode = await api.postapi("$baseurl/api/resend-code", body);
       print('resendCode is $resendCode');
+      
+    if (resendCode != null && resendCode['status'] == true) {
+      check = true;
+    } else {
+      check = false;
+    }
+    notifyListeners();
     } catch (e) {
       print("Error : $e");
       check = false;
@@ -319,16 +332,9 @@ Future<void> pickImageFromGallery() async {
       notifyListeners();
     }
 
-    if (resendCode != null && resendCode['status'] == true) {
-      check = true;
-    } else {
-      check = false;
-    }
-
-    notifyListeners();
   }
 
-   TextEditingController first_name = new TextEditingController();
+  TextEditingController first_name = new TextEditingController();
   String? imageadmin;
 
   var profilee;
@@ -338,14 +344,17 @@ Future<void> pickImageFromGallery() async {
     setLoading(true);
 
     try {
-      profilee = await api.getapi2('$baseurl/api/profile', tokenbox.get("token"),);
+      profilee = await api.getapi2(
+        '$baseurl/api/profile',
+        tokenbox.get("token"),
+      );
       print('profilee is $profilee');
-      print(tokenbox.get("token"),);
+      print(tokenbox.get("token"));
       if (profilee != null && profilee['status'] == true) {
-      check = true;
-    } else {
-      check = false;
-    }
+        check = true;
+      } else {
+        check = false;
+      }
     } catch (e) {
       print(e);
       check = false;
@@ -361,14 +370,17 @@ Future<void> pickImageFromGallery() async {
     check = false;
     setLoading(true);
     try {
-      getbanner = await api.getapi2('$baseurl/api/banners', tokenbox.get("token"),);
+      getbanner = await api.getapi2(
+        '$baseurl/api/banners',
+        tokenbox.get("token"),
+      );
       print('getbanner is $getbanner');
-      print(tokenbox.get("token"),);
+      print(tokenbox.get("token"));
       if (getbanner != null && getbanner['status'] == true) {
-      check = true;
-    } else {
-      check = false;
-    }
+        check = true;
+      } else {
+        check = false;
+      }
     } catch (e) {
       print(e);
       check = false;
@@ -379,59 +391,67 @@ Future<void> pickImageFromGallery() async {
   }
 
   void clearPickedImage() {
-  _image = null;
-  notifyListeners();
-}
-
-   TextEditingController last_name = new TextEditingController();
-   TextEditingController current_password = new TextEditingController();
-   TextEditingController password_confirmation = new TextEditingController();
-
-var updateProfile;
-
-  Future UpdateProfile() async {
-  check = false;
-  setLoading(true);
-
-
-  Object body = {
-    '_method' : 'put',
-    'name' : first_name.text,
-    // 'last_name' : last_name.text,
-    'current_password' : passwordnow.text,
-    'email' : email.text ,
-    'password' : password_confirmation.text,
-    'password_confirmation' : password_confirmation.text
-  };
-
-  print("body: $body");
-
-  try {
-  if ( _image != null )
-  {
-    updateProfile = await api.postapiimage('$baseurl/api/profile', body, _image, tokenbox.get("token"));
-    print(tokenbox.get("token"));
-  }
-    else{
-      updateProfile = await api.postapi2('$baseurl/api/profile', body, tokenbox.get("token"));
-    }
-    print('updateProfile ==> $updateProfile');
-    if (updateProfile != null && updateProfile['status'] == true) {
-      check = true;
-      notifyListeners();
-    } else {
-      check = false;
-    }
-    print('updateProfile is $updateProfile');
-  } catch (e) {
-    print(e);
-    check = false;
-  } finally {
-    setLoading(false);
+    _image = null;
     notifyListeners();
   }
-}
 
+  TextEditingController current_password = new TextEditingController();
+  TextEditingController password_confirmation = new TextEditingController();
+
+  var updateProfile;
+
+  Future UpdateProfile() async {
+    check = false;
+    setLoading(true);
+
+    Object body = {
+      '_method': 'put',
+      'name': first_name.text,
+      'current_password': passwordnow.text,
+      'email': email.text,
+      'password': password_confirmation.text,
+      'password_confirmation': password_confirmation.text,
+    };
+
+    print("body: $body");
+
+    try {
+      if (_image != null) {
+        updateProfile = await api
+            .postapiimage(
+              '$baseurl/api/profile',
+              body,
+              _image,
+              tokenbox.get("token"),
+            )
+            .timeout(Duration(seconds: 30));
+        print(tokenbox.get("token"));
+      } else {
+        updateProfile = await api
+            .postapi2('$baseurl/api/profile', body, tokenbox.get("token"))
+            .timeout(Duration(seconds: 30));
+      }
+      print('updateProfile ==> $updateProfile');
+      if (updateProfile != null && updateProfile['status'] == true) {
+        check = true;
+        notifyListeners();
+      } else {
+        check = false;
+      }
+      print('updateProfile is $updateProfile');
+    } on TimeoutException {
+      print("❌ UpdateProfile request timed out");
+      updateProfile = null;
+      check = false;
+    } catch (e) {
+      print(e);
+      check = false;
+    } finally {
+      _image = null;
+      setLoading(false);
+      notifyListeners();
+    }
+  }
 
   var addbannerapi;
 
@@ -441,7 +461,6 @@ var updateProfile;
 
     Object body = {};
 
-
     if (_image == null) {
       setLoading(false);
       check = false;
@@ -449,25 +468,32 @@ var updateProfile;
     }
 
     try {
-      addbannerapi = await api.postapiimage(
-        '$baseurl/api/banners',
-        body,
-        _image,
-        tokenbox.get("token"),
-      );
-      print(tokenbox.get("token"),);
+      addbannerapi = await api
+          .postapiimage(
+            '$baseurl/api/banners',
+            body,
+            _image,
+            tokenbox.get("token"),
+          )
+          .timeout(Duration(seconds: 30));
+      print(tokenbox.get("token"));
       print('addbannerapi is $addbannerapi');
       if (addbannerapi != null && addbannerapi['status'] == true) {
-      check = true;
-      notifyListeners();
-    } else {
+        check = true;
+        notifyListeners();
+      } else {
+        check = false;
+        notifyListeners();
+      }
+    } on TimeoutException {
+      print("❌ AddBanner request timed out");
+      addbannerapi = null;
       check = false;
-      notifyListeners();
-    }
     } catch (e) {
       print(e);
       check = false;
     } finally {
+      _image = null;
       setLoading(false);
       notifyListeners();
     }
@@ -479,9 +505,7 @@ var updateProfile;
   Future UpdateBanner({required int id}) async {
     check = false;
     isUpdatingBanner = true;
-    Object body = {
-      '_method' : 'PUT'
-    };
+    Object body = {'_method': 'PUT'};
     if (_image == null) {
       isUpdatingBanner = false;
       check = false;
@@ -489,27 +513,34 @@ var updateProfile;
       return;
     }
     try {
-      updateBanner = await api.postapiimage(
-        '$baseurl/api/banners/$id',
-        body,
-        _image,
-        tokenbox.get("token"),
-      );
-      print(tokenbox.get("token"),);
+      updateBanner = await api
+          .postapiimage(
+            '$baseurl/api/banners/$id',
+            body,
+            _image,
+            tokenbox.get("token"),
+          )
+          .timeout(Duration(seconds: 30));
+      print(tokenbox.get("token"));
       print('updateBanner $updateBanner');
       if (updateBanner != null && updateBanner['status'] == true) {
         GetBanner();
-      check = true;
-      notifyListeners();
-    } else {
+        check = true;
+        notifyListeners();
+      } else {
+        check = false;
+        notifyListeners();
+      }
+    } on TimeoutException {
+      print("❌ UpdateBanner request timed out");
+      updateBanner = null;
       check = false;
-      notifyListeners();
-    }
     } catch (e) {
       print(e);
       check = false;
       notifyListeners();
     } finally {
+      _image = null;
       isUpdatingBanner = false;
       notifyListeners();
     }
@@ -518,53 +549,50 @@ var updateProfile;
   // el image elly b7zfha
 
   Future<XFile?> downloadImageAsXFile(String imageUrl) async {
-  try {
-    final response = await http.get(Uri.parse(imageUrl));
-    if (response.statusCode == 200) {
-      final tempDir = await getTemporaryDirectory();
-      final filePath = '${tempDir.path}/temp_image.jpg';
-      final file = File(filePath);
-      await file.writeAsBytes(response.bodyBytes);
-      return XFile(filePath);
+    try {
+      final response = await http.get(Uri.parse(imageUrl));
+      if (response.statusCode == 200) {
+        final tempDir = await getTemporaryDirectory();
+        final filePath = '${tempDir.path}/temp_image.jpg';
+        final file = File(filePath);
+        await file.writeAsBytes(response.bodyBytes);
+        return XFile(filePath);
+      }
+    } catch (e) {
+      print('Error downloading image: $e');
     }
-  } catch (e) {
-    print('Error downloading image: $e');
+    return null;
   }
-  return null;
-}
-
-
-
-
 
   // deleteBanner
 
-var deleteBanner;
+  var deleteBanner;
 
   Future DeleteBanner({required int id}) async {
     print(tokenbox.get("token"));
     check = false;
     setLoading(true);
 
-    Object body = {
-    };
+    Object body = {};
 
     try {
-      deleteBanner = await api.deleteApi(
-        "$baseurl/api/banners/$id",
-        body,
-        tokenbox.get("token")
-      );
-      
+      deleteBanner = await api
+          .deleteApi("$baseurl/api/banners/$id", body, tokenbox.get("token"))
+          .timeout(Duration(seconds: 30));
+
       if (deleteBanner != null && deleteBanner['status'] == true) {
-      check = true;
-      await GetBanner();
-      print('deleteBanner is $deleteBanner');
-      notifyListeners();
-    } else {
+        check = true;
+        await GetBanner();
+        print('deleteBanner is $deleteBanner');
+        notifyListeners();
+      } else {
+        check = false;
+        notifyListeners();
+      }
+    } on TimeoutException {
+      print("❌ DeleteBanner request timed out");
+      deleteBanner = null;
       check = false;
-      notifyListeners();
-    }
     } catch (e) {
       print("$e");
       check = false;
@@ -590,10 +618,10 @@ var deleteBanner;
       );
       print('employees is $employees');
       if (employees != null && employees['status'] == true) {
-      check = true;
-    } else {
-      check = false;
-    }
+        check = true;
+      } else {
+        check = false;
+      }
     } catch (e) {
       print("$e");
       check = false;
@@ -606,147 +634,171 @@ var deleteBanner;
   var addEmployee;
 
   Future AddEmployee() async {
-  check = false;
-  setLoading(true);
-
-
-  Object body = {
-    'name' : username.text,
-    'job' : employeejob.text,
-    'phone' : employeephone.text ,
-  };
-
-  print("body: $body");
-
-  try {
-  if ( _image != null )
-  {
-    addEmployee = await api.postapiimage('$baseurl/api/employees', body, _image, tokenbox.get("token"));
-  }
-    else{
-      print(username.text);
-      addEmployee = await api.postapi2('$baseurl/api/employees', body, tokenbox.get("token"));
-    }
-    print('addEmployee is $addEmployee');
-    if (addEmployee != null && addEmployee['status'] == true) {
-      check = true;
-      notifyListeners();
-    } else {
-      check = false;
-    }
-    print(addEmployee);
-  } catch (e) {
-    print(e);
     check = false;
-  } finally {
-    setLoading(false);
-    notifyListeners();
+    setLoading(true);
+
+    Object body = {
+      'name': username.text,
+      'job': employeejob.text,
+      'phone': employeephone.text,
+    };
+
+    print("body: $body");
+
+    try {
+      if (_image != null) {
+        addEmployee = await api
+            .postapiimage(
+              '$baseurl/api/employees',
+              body,
+              _image,
+              tokenbox.get("token"),
+            )
+            .timeout(Duration(seconds: 30));
+      } else {
+        print(username.text);
+        addEmployee = await api
+            .postapi2('$baseurl/api/employees', body, tokenbox.get("token"))
+            .timeout(Duration(seconds: 30));
+      }
+      print('addEmployee is $addEmployee');
+      if (addEmployee != null && addEmployee['status'] == true) {
+        check = true;
+        notifyListeners();
+      } else {
+        check = false;
+      }
+      print(addEmployee);
+    } on TimeoutException {
+      print("❌ AddEmployee request timed out");
+      addEmployee = null;
+      check = false;
+    } catch (e) {
+      print(e);
+      check = false;
+    } finally {
+      _image = null;
+      setLoading(false);
+      notifyListeners();
+    }
   }
-}
- 
-TextEditingController employeename = new TextEditingController();
-   TextEditingController employeephone = new TextEditingController();
-   TextEditingController employeejobb = new TextEditingController();
+
+  TextEditingController employeename = new TextEditingController();
+  TextEditingController employeephone = new TextEditingController();
+  TextEditingController employeejobb = new TextEditingController();
 
   void initializeControllers(int index) async {
     await Employees();
-  if (employees != null ) {
-    if( employees['data'] != null){
-      employeename.text = employees['data'][index]['name']?.toString() ?? '';
-    employeephone.text = employees['data'][index]['phone']?.toString() ?? '';
-    employeejobb.text = employees['data'][index]['email']?.toString() ?? '';
-    notifyListeners();
+    if (employees != null) {
+      if (employees['data'] != null) {
+        employeename.text = employees['data'][index]['name']?.toString() ?? '';
+        employeephone.text =
+            employees['data'][index]['phone']?.toString() ?? '';
+        employeejobb.text = employees['data'][index]['email']?.toString() ?? '';
+        notifyListeners();
+      }
     }
-    
   }
-}
 
   // update Employee
 
   var updateEmployee;
 
   Future UpdateEmployee({required int id}) async {
-  check = false;
-  setLoading(true);
-
-
-  Object body = {
-    'name' : employeename.text,
-    'job' : employeejobb.text,
-    'phone' : employeephone.text ,
-    '_method' : 'put'
-  };
-
-  print("body: $body");
-
-  try {
-  if ( _image != null )
-  {
-    updateEmployee = await api.postapiimage('$baseurl/api/employees/$id', body, _image, tokenbox.get("token"));
-  }
-    else{
-      print(username.text);
-      updateEmployee = await api.postapi2('$baseurl/api/employees/$id', body, tokenbox.get("token"));
-    }
-    print("updateEmployee $updateEmployee");
-    if (updateEmployee != null && updateEmployee['status'] == true) {
-      check = true;
-      notifyListeners();
-    } else {
-      check = false;
-    }
-  } catch (e) {
-    print(e);
     check = false;
-  } finally {
-    setLoading(false);
-    notifyListeners();
-  }
-}
+    setLoading(true);
 
-// delete Employee
+    Object body = {
+      'name': employeename.text,
+      'job': employeejobb.text,
+      'phone': employeephone.text,
+      '_method': 'put',
+    };
+
+    print("body: $body");
+
+    try {
+      if (_image != null) {
+        updateEmployee = await api
+            .postapiimage(
+              '$baseurl/api/employees/$id',
+              body,
+              _image,
+              tokenbox.get("token"),
+            )
+            .timeout(Duration(seconds: 30));
+      } else {
+        print(username.text);
+        updateEmployee = await api
+            .postapi2('$baseurl/api/employees/$id', body, tokenbox.get("token"))
+            .timeout(Duration(seconds: 30));
+      }
+      print("updateEmployee $updateEmployee");
+      if (updateEmployee != null && updateEmployee['status'] == true) {
+        check = true;
+        notifyListeners();
+      } else {
+        check = false;
+      }
+    } on TimeoutException {
+      print("❌ UpdateEmployee request timed out");
+      updateEmployee = null;
+      check = false;
+    } catch (e) {
+      print(e);
+      check = false;
+    } finally {
+      _image = null;
+      setLoading(false);
+      notifyListeners();
+    }
+  }
+
+  // delete Employee
 
   var deleteEmployee;
 
   Future DeleteEmployee({required int id}) async {
-  check = false;
-  setLoading(true);
-
-
-  Object body = {
-    'name' : employeename.text,
-    'job' : employeejobb.text,
-    'phone' : employeephone.text ,
-    '_method' : 'put',
-  };
-
-  print("body: $body");
-
-  try {
-
-      print(username.text);
-      deleteEmployee = await api.deleteApi('$baseurl/api/employees/$id', body, tokenbox.get("token"));
-
-    print("deleteEmployee $deleteEmployee");
-    if (deleteEmployee != null && deleteEmployee['status'] == true) {
-      check = true;
-      notifyListeners();
-    } else {
-      check = false;
-    }
-    print(deleteEmployee);
-  } catch (e) {
-    print(e);
     check = false;
-  } finally {
-    setLoading(false);
-    notifyListeners();
+    setLoading(true);
+
+    Object body = {
+      'name': employeename.text,
+      'job': employeejobb.text,
+      'phone': employeephone.text,
+      '_method': 'put',
+    };
+
+    print("body: $body");
+
+    try {
+      print(username.text);
+      deleteEmployee = await api
+          .deleteApi('$baseurl/api/employees/$id', body, tokenbox.get("token"))
+          .timeout(Duration(seconds: 30));
+
+      print("deleteEmployee $deleteEmployee");
+      if (deleteEmployee != null && deleteEmployee['status'] == true) {
+        check = true;
+        notifyListeners();
+      } else {
+        check = false;
+      }
+      print(deleteEmployee);
+    } on TimeoutException {
+      print("❌ DeleteEmployee request timed out");
+      deleteEmployee = null;
+      check = false;
+    } catch (e) {
+      print(e);
+      check = false;
+    } finally {
+      setLoading(false);
+      notifyListeners();
+    }
   }
-}
 
-
-
-// get Project
+  // get Project
 
   var projects;
 
@@ -761,10 +813,10 @@ TextEditingController employeename = new TextEditingController();
       );
       print('projects is $projects');
       if (projects != null && projects['status'] == true) {
-      check = true;
-    } else {
-      check = false;
-    }
+        check = true;
+      } else {
+        check = false;
+      }
     } catch (e) {
       print("$e");
       check = false;
@@ -774,11 +826,11 @@ TextEditingController employeename = new TextEditingController();
     }
   }
 
-   TextEditingController title = new TextEditingController();
-   TextEditingController description = new TextEditingController();
-    List <TextEditingController> featureControllers = [];
+  TextEditingController title = new TextEditingController();
+  TextEditingController description = new TextEditingController();
+  List<TextEditingController> featureControllers = [];
   void addFeatureController() {
-    featureControllers.add (TextEditingController());
+    featureControllers.add(TextEditingController());
     notifyListeners();
   }
 
@@ -800,137 +852,161 @@ TextEditingController employeename = new TextEditingController();
     return featureControllers.map((e) => e.text).toList();
   }
 
-  // new TextEditingController feature = new TextEditingController();
-  // new TextEditingController feature2 = new TextEditingController();
-
   var addProjects;
 
   Future AddProjects() async {
-  check = false;
-  setLoading(true);
-
-
-  Object body = {
-    'title' : title.text,
-    'description' : description.text,
-  };
-
-  List<String> featuresList = featureValues;
-
-  print("body: $body");
-
-  try {
-  if ( _image != null )
-  {
-    addProjects = await api.postaplist('$baseurl/api/projects', body, featuresList , _image, tokenbox.get("token"));
-  }
-    else{
-      print(username.text);
-      addProjects = await api.postapi2('$baseurl/api/projects', body, tokenbox.get("token"));
-    }
-    print('addProjects is $addProjects');
-    if (addProjects != null && addProjects['status'] == true) {
-      check = true;
-      notifyListeners();
-    } else {
-      check = false;
-    }
-  } catch (e) {
-    print(e);
     check = false;
-  } finally {
-    setLoading(false);
-    notifyListeners();
-  }
-}
- 
-TextEditingController Projectsname = new TextEditingController();
-   TextEditingController Projectsphone = new TextEditingController();
-   TextEditingController Projectsjobb = new TextEditingController();
+    setLoading(true);
 
+    Object body = {'title': title.text, 'description': description.text};
+
+    List<String> featuresList = featureValues;
+
+    print("body: $body");
+
+    try {
+      if (_image != null) {
+        addProjects = await api
+            .postaplist(
+              '$baseurl/api/projects',
+              body,
+              featuresList,
+              _image,
+              tokenbox.get("token"),
+            )
+            .timeout(Duration(seconds: 30));
+      } else {
+        print(username.text);
+        addProjects = await api
+            .postapi2('$baseurl/api/projects', body, tokenbox.get("token"))
+            .timeout(Duration(seconds: 30));
+      }
+      print('addProjects is $addProjects');
+      if (addProjects != null && addProjects['status'] == true) {
+        check = true;
+        notifyListeners();
+      } else {
+        check = false;
+      }
+    } on TimeoutException {
+      print("❌ AddProjects request timed out");
+      addProjects = null;
+      check = false;
+    } catch (e) {
+      print(e);
+      check = false;
+    } finally {
+      _image = null;
+      setLoading(false);
+      notifyListeners();
+    }
+  }
+
+  TextEditingController Projectsname = new TextEditingController();
+  TextEditingController Projectsphone = new TextEditingController();
+  TextEditingController Projectsjobb = new TextEditingController();
 
   // update project
 
   var updateProjects;
 
   Future UpdateProjects({required int id}) async {
-  check = false;
-  setLoading(true);
-
-
-  Object body = {
-    'name' : Projectsname.text,
-    'job' : Projectsjobb.text,
-    'phone' : Projectsphone.text ,
-    '_method' : 'put'
-  };
-
-  print("body: $body");
-
-  try {
-  if ( _image != null )
-  {
-    updateProjects = await api.postapiimage('$baseurl/api/projects/$id', body, _image, tokenbox.get("token"));
-  }
-    else{
-      print(username.text);
-      updateProjects = await api.postapi2('$baseurl/api/projects/$id', body, tokenbox.get("token"));
-    }
-    print("updateProjects $updateProjects");
-    if (updateProjects != null && updateProjects['status'] == true) {
-      check = true;
-      notifyListeners();
-    } else {
-      check = false;
-    }
-  } catch (e) {
-    print(e);
     check = false;
-  } finally {
-    setLoading(false);
-    notifyListeners();
+    setLoading(true);
+
+    Object body = {
+      'name': Projectsname.text,
+      'job': Projectsjobb.text,
+      'phone': Projectsphone.text,
+      '_method': 'put',
+    };
+
+    print("body: $body");
+
+    try {
+      if (_image != null) {
+        updateProjects = await api
+            .postapiimage(
+              '$baseurl/api/projects/$id',
+              body,
+              _image,
+              tokenbox.get("token"),
+            )
+            .timeout(Duration(seconds: 30));
+      } else {
+        print(username.text);
+        updateProjects = await api
+            .postapi2('$baseurl/api/projects/$id', body, tokenbox.get("token"))
+            .timeout(Duration(seconds: 30));
+      }
+      print("updateProjects $updateProjects");
+      if (updateProjects != null && updateProjects['status'] == true) {
+        check = true;
+        notifyListeners();
+      } else {
+        check = false;
+      }
+    } on TimeoutException {
+      print("❌ UpdateProjects request timed out");
+      updateProjects = null;
+      check = false;
+    } catch (e) {
+      print(e);
+      check = false;
+    } finally {
+      _image = null;
+      setLoading(false);
+      notifyListeners();
+    }
   }
-}
 
   var deleteProject;
 
   Future DeleteProject({required int id}) async {
-  check = false;
-  setLoading(true);
-
-
-  Object body = {
-    'title' : title.text,
-    'description' : description.text,
-    '_method' : 'put',
-  };
-
-  print("body: $body");
-  check = false;
-  setLoading(true);
-
-  List<String> featuresList = featureValues;
-
-  try {
-
-      print(username.text);
-      deleteProject = await api.deleteApiList('$baseurl/api/projects/$id', body,  featuresList,tokenbox.get("token"));
-
-    print("deleteProject $deleteProject");
-    if (deleteProject != null && deleteProject['status'] == true) {
-      check = true;
-      notifyListeners();
-    } else {
-      check = false;
-    }
-    print(deleteProject);
-  } catch (e) {
-    print(e);
     check = false;
-  } finally {
-    setLoading(false);
-    notifyListeners();
-  }
-}
+    setLoading(true);
 
+    Object body = {
+      'title': title.text,
+      'description': description.text,
+      '_method': 'put',
+    };
+
+    print("body: $body");
+    check = false;
+    setLoading(true);
+
+    List<String> featuresList = featureValues;
+
+    try {
+      print(username.text);
+      deleteProject = await api
+          .deleteApiList(
+            '$baseurl/api/projects/$id',
+            body,
+            featuresList,
+            tokenbox.get("token"),
+          )
+          .timeout(Duration(seconds: 30));
+
+      print("deleteProject $deleteProject");
+      if (deleteProject != null && deleteProject['status'] == true) {
+        check = true;
+        notifyListeners();
+      } else {
+        check = false;
+      }
+      print(deleteProject);
+    } on TimeoutException {
+      print("❌ DeleteProject request timed out");
+      deleteProject = null;
+      check = false;
+    } catch (e) {
+      print(e);
+      check = false;
+    } finally {
+      setLoading(false);
+      notifyListeners();
+    }
+  }
 }
