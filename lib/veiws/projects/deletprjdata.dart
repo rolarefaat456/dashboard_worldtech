@@ -17,6 +17,7 @@ void deletprjdata({required BuildContext context, required int index}) {
             height: 400,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   children: [

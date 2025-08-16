@@ -35,7 +35,7 @@ class _Logout extends State<Logout> {
                     builder: (context, value, child) {
                       return MaterialButton(
                         onPressed: () async {
-                          await 
+                          await
                           Navigator.of(context).pushReplacementNamed('Signin');
                         },
                         child: Text(

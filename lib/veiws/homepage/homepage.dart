@@ -95,8 +95,7 @@ Widget HomeType(BuildContext context) {
               margin: EdgeInsets.only(bottom: 10),
               height: MediaQuery.of(context).size.width < 900
                   ? MediaQuery.sizeOf(context).height/3
-                  : 
-              340,
+                  : 340,
               child: Announcement(),
             ),
             Container(
@@ -116,7 +115,6 @@ Widget HomeType(BuildContext context) {
               : MediaQuery.of(context).size.width / 2,
               // height: 800,
               height: MediaQuery.sizeOf(context).height/1.1,
-            
               child: Projects(),
             ),
       ],

@@ -37,7 +37,7 @@ class _Employeedata extends State<Employeedata> {
           return value.employees == null
     ? Center(child: CircularProgressIndicator())
     : (value.employees['data'] is! List || (value.employees['data'] as List).isEmpty)
-        ? Center(child: EmptyPage()) 
+        ? Center(child: EmptyPage())
         : GridView.builder(
                   itemCount: value.employees['data'].length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

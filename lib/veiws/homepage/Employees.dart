@@ -34,27 +34,29 @@ class Employees extends StatelessWidget {
           ),
           Consumer<Signinprovider>(
             builder: (context, value, child) {
-              
               print("Employees data: ${value.employees}");
-              
-              return value.employees == null? Center(child: CircularProgressIndicator()): value.employees?['data'] == null ||
-                  value.employees?['data'].isEmpty? Center(child: Text("لا يوجد موظفين")):
-              Expanded(
-                child: ListView.builder(
-                  itemCount: value.employees?['data']?.length,
-                  itemBuilder: (context, index) {
-                    return DataEmployee(
-                      title:
-                          value.employees?['data']?[index]?['name'] ??
-                          "بدون اسم",
-                      subtitle:
-                          value.employees?['data']?[index]?['phone'] ?? "—",
-                      image:
-                          '${value.baseurl}/${value.employees?['data']?[index]?['image']}' ,
+              return value.employees == null
+                  ? Center(child: CircularProgressIndicator())
+                  : value.employees?['data'] == null ||
+                        value.employees?['data'].isEmpty
+                  ? Center(child: Text("لا يوجد موظفين"))
+                  : Expanded(
+                      child: ListView.builder(
+                        itemCount: value.employees?['data']?.length,
+                        itemBuilder: (context, index) {
+                          return DataEmployee(
+                            title:
+                                value.employees?['data']?[index]?['name'] ??
+                                "بدون اسم",
+                            subtitle:
+                                value.employees?['data']?[index]?['phone'] ??
+                                "—",
+                            image:
+                                '${value.baseurl}/${value.employees?['data']?[index]?['image']}',
+                          );
+                        },
+                      ),
                     );
-                  },
-                ),
-              );
             },
           ),
         ],

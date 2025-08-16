@@ -8,6 +8,7 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:dashboard/components/core/utils/app_colors.dart';
 
 class Signinprovider extends ChangeNotifier {
   String baseurl = "http://77.37.51.239/WorldTech/public";
@@ -17,11 +18,11 @@ class Signinprovider extends ChangeNotifier {
   bool obscure2 = true;
   IconData iconData1 = Icons.visibility_off_outlined;
   IconData iconData2 = Icons.visibility_off_outlined;
-  TextEditingController email = new TextEditingController();
-  TextEditingController password = new TextEditingController();
-  TextEditingController username = new TextEditingController();
-  TextEditingController employeejob = new TextEditingController();
-  TextEditingController passwordnow = new TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController username = TextEditingController();
+  TextEditingController employeejob = TextEditingController();
+  TextEditingController passwordnow = TextEditingController();
   late Box tokenbox = Hive.box("token");
 
   // provider page two
@@ -88,7 +89,7 @@ class Signinprovider extends ChangeNotifier {
   }
 
   // menu
-  Color color = Colors.white;
+  Color color = AppColors.White;
   int selectindex = 0;
 
   void selecting(int index) {
@@ -97,10 +98,10 @@ class Signinprovider extends ChangeNotifier {
   }
 
   void colorr(int selected) {
-    if (color == Colors.white) {
-      color = Color.fromARGB(255, 242, 241, 237);
+    if (color == AppColors.White) {
+      color = AppColors.Darkviolet;
     } else {
-      color = Colors.white;
+      color = AppColors.White;
     }
     notifyListeners();
   }
@@ -164,10 +165,13 @@ class Signinprovider extends ChangeNotifier {
     setLoading(true);
 
 
-    Object body = {"email": email.text, "password": password.text};
+    Object body = {
+      "email": email.text,
+      "password": password.text
+    };
 
     try {
-      loginn = await api.postapi("$baseurl/api/login", body);
+      loginn = await api.postapi("$baseurl/api/login", body).timeout(Duration(seconds: 30));
       print('loginn is $loginn');
       if (loginn != null && loginn['status'] == true) {
         tokenbox.put("token", loginn['data']['token']);
@@ -175,6 +179,10 @@ class Signinprovider extends ChangeNotifier {
       } else {
         check = false;
       }
+    } on TimeoutException {
+      print("❌ Login request timed out");
+      loginn = null;
+      check = false;
     } catch (e) {
       print("Error during login: $e");
       check = false;

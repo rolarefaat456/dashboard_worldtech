@@ -139,6 +139,7 @@ void Addbanner({
                                 Navigator.of(context).pop();
                               },
                             );
+                            await value.GetBanner();
                             }else{
                               editSuccessDialog.showEditSuccessDialog(
                                 check: value.check,

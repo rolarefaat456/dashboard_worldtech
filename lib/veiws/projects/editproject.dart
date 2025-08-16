@@ -415,6 +415,7 @@ void Editproject({
                                             Navigator.of(context).pop();
                                           },
                                         );
+                                        await value.Projects();
                                       }
                                     }
                                   },

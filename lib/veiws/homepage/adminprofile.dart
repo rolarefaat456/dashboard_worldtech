@@ -26,216 +26,196 @@ void ShowAlert({
     builder: (context) {
       return SingleChildScrollView(
         child: AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.White,
           content: Container(
-            child: Column(
-              children: [
-                Row(
+            child: Consumer<Signinprovider>(
+              builder: (context, value, child) {
+                return Column(
                   children: [
-                    MaterialButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(width: 20, child: Icon(Icons.close)),
-                    ),
-                    Expanded(child: SizedBox()),
-                  ],
-                ),
-                Consumer<Signinprovider>(
-                  builder: (context, value, child) {
-                    return ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: 232,
-                        maxWidth: 232
-                      ),
-                      child: value.enabled ? Stack(
-                        clipBehavior: Clip.none,
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          AspectRatio(
-                        aspectRatio: 1,
-                        child: CircleAvatar(
-                            backgroundImage:
-                               NetworkImage(
-                                image,
-                              ),onBackgroundImageError: (exception, stackTrace) {
-                                Icon(Icons.broken_image);
-                              },
-                          )
-                        ),
-                        IconButton(
-                          onPressed: () async {
-                            await value.pickImageFromGallery();
+                    value.botton == "حفظ التعديلات" ? SizedBox() :Row(
+                      children: [
+                        MaterialButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
                           },
-                          icon: Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: AppColors.White,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: AppColors.Grey
+                          child: Container(width: 20, child: Icon(Icons.close)),
+                        ),
+                        Expanded(child: SizedBox()),
+                      ],
+                    ),
+                    Consumer<Signinprovider>(
+                      builder: (context, value, child) {
+                        return ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight: 232,
+                            maxWidth: 232
+                          ),
+                          child: value.enabled ? Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              AspectRatio(
+                            aspectRatio: 1,
+                            child: CircleAvatar(
+                                backgroundImage:
+                                   NetworkImage(
+                                    image,
+                                  ),onBackgroundImageError: (exception, stackTrace) {
+                                    Icon(Icons.broken_image);
+                                  },
                               )
                             ),
-                            child: Icon(Icons.camera_alt_outlined)
-                          )
-                        )
-                        ],
-                      )
-                      : AspectRatio(
-                        aspectRatio: 1,
-                        child: CircleAvatar(
-                            backgroundImage:
-                               NetworkImage(
-                                image,
-                              ),onBackgroundImageError: (exception, stackTrace) {
-                                Icon(Icons.broken_image);
+                            IconButton(
+                              onPressed: () async {
+                                await value.pickImageFromGallery();
                               },
-                        ),
-                      )
-                    );
-                  }
-                ),
-                Form(
-                  key: formkey,
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width < 600
-                    ?MediaQuery.sizeOf(context).width/1.5
-                    :MediaQuery.sizeOf(context).width < 900
-                    ?MediaQuery.sizeOf(context).width/2
-                    :MediaQuery.sizeOf(context).width/2.5,
-                    child: Consumer<Signinprovider>(
-                      builder: (context, value, child) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: Text(
-                                "الإسم :",
-                                textDirection: TextDirection.rtl,
-                                style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai', color: AppColors.Blue)
-                              ),
-                            ),
-                            value.enabled ? 
-                            TextFormField(
-                                    enabled: value.enabled,
-                                    readOnly: value.readonly,
-                                    controller: value.first_name,
-                                    style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(width: 0.5),
-                                      ),
-                                      
-                                    ),
+                              icon: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: AppColors.White,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: AppColors.Grey
                                   )
-                            // Row(
-                            //   children: [
-                            //     Expanded(
-                            //       child: Container(
-                            //         margin: EdgeInsets.symmetric(horizontal: 10),
-                            //         child: TextFormField(
-                            //           enabled: value.enabled,
-                            //           readOnly: value.readonly,
-                            //           controller: value.first_name,
-                            //           style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
-                            //           decoration: InputDecoration(
-                            //             border: OutlineInputBorder(
-                            //               borderRadius: BorderRadius.circular(10),
-                            //               borderSide: BorderSide(width: 0.5),
-                            //             ),
-                                        
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     Expanded(
-                            //       child: TextFormField(
-                            //         enabled: value.enabled,
-                            //         readOnly: value.readonly,
-                            //         controller: value.last_name,
-                            //         style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
-                            //         decoration: InputDecoration(
-                            //           border: OutlineInputBorder(
-                            //             borderRadius: BorderRadius.circular(10),
-                            //             borderSide: BorderSide(width: 0.5),
-                            //           ),
-                                      
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // )
-                            :TextFormField(
-                                    enabled: value.enabled,
-                                    readOnly: value.readonly,
-                                    controller: value.first_name,
-                                    style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(width: 0.5),
-                                      ),
-                                      
-                                    ),
-                                  ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: Text(
-                                "الايميل :",
-                                textDirection: TextDirection.rtl,
-                                style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai', color: AppColors.Blue)
-                              ),
-                            ),
-                            TextFormField(
-                              controller: value.email,
-                              style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
-                              enabled: value.enabled,
-                              readOnly: value.readonly,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                              ),
+                                child: Icon(Icons.camera_alt_outlined)
+                              )
+                            )
+                            ],
+                          )
+                          : AspectRatio(
+                            aspectRatio: 1,
+                            child: CircleAvatar(
+                                backgroundImage:
+                                   NetworkImage(
+                                    image,
+                                  ),
+                                  onBackgroundImageError: (exception, stackTrace) {
+                                    Icon(Icons.broken_image);
+                                  },
                             ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 20),
-                              child: Text(
-                                "كلمة المرور :",
-                                textDirection: TextDirection.rtl,
-                                style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai', color: AppColors.Blue)
-                              ),
-                            ),
-                            value.botton == "حفظ التعديلات" ? Column(
+                          )
+                        );
+                      }
+                    ),
+                    Form(
+                      key: formkey,
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width < 600
+                        ?MediaQuery.sizeOf(context).width/1.5
+                        :MediaQuery.sizeOf(context).width < 900
+                        ?MediaQuery.sizeOf(context).width/2
+                        :MediaQuery.sizeOf(context).width/2.5,
+                        child: Consumer<Signinprovider>(
+                          builder: (context, value, child) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-                                  child: TextFormField(
-                                    enabled: value.enabled,
-                                    readOnly: value.readonly,
-                                    controller: value.passwordnow,
-                                    style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
-                                    decoration: InputDecoration(
-                                      hint: Text(
-                                        'current password',
-                                        style: AppTextStyles.style14w400(context),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
+                                  child: Text(
+                                    "الإسم :",
+                                    textDirection: TextDirection.rtl,
+                                    style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai', color: AppColors.Blue)
+                                  ),
+                                ),
+                                value.enabled ? TextFormField(
+                                        enabled: value.enabled,
+                                        readOnly: value.readonly,
+                                        controller: value.first_name,
+                                        style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: BorderSide(width: 0.5),
+                                          ),
+                                        ),
+                                      )
+                                :TextFormField(
+                                        enabled: value.enabled,
+                                        readOnly: value.readonly,
+                                        controller: value.first_name,
+                                        style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: BorderSide(width: 0.5),
+                                          ),
+                                        ),
                                       ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
+                                  child: Text(
+                                    "الايميل :",
+                                    textDirection: TextDirection.rtl,
+                                    style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai', color: AppColors.Blue)
                                   ),
                                 ),
                                 TextFormField(
+                                  controller: value.email,
+                                  style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
                                   enabled: value.enabled,
                                   readOnly: value.readonly,
-                                  controller: value.password_confirmation,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 20),
+                                  child: Text(
+                                    "كلمة المرور :",
+                                    textDirection: TextDirection.rtl,
+                                    style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai', color: AppColors.Blue)
+                                  ),
+                                ),
+                                value.botton == "حفظ التعديلات" ? Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(top: 10, bottom: 20),
+                                      child: TextFormField(
+                                        enabled: value.enabled,
+                                        readOnly: value.readonly,
+                                        controller: value.passwordnow,
+                                        style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
+                                        decoration: InputDecoration(
+                                          hint: Text(
+                                            'current password',
+                                            style: AppTextStyles.style14w400(context),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    TextFormField(
+                                      enabled: value.enabled,
+                                      readOnly: value.readonly,
+                                      controller: value.password_confirmation,
+                                      style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
+                                      decoration: InputDecoration(
+                                        hint: Text(
+                                          'confirmation password',
+                                          style: AppTextStyles.style14w400(context),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ):
+                                TextFormField(
+                                  enabled: value.enabled,
+                                  readOnly: value.readonly,
+                                  controller: value.password,
                                   style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
                                   decoration: InputDecoration(
                                     hint: Text(
-                                      'confirmation password',
+                                      '******',
                                       style: AppTextStyles.style14w400(context),
                                     ),
                                     border: OutlineInputBorder(
@@ -243,88 +223,73 @@ void ShowAlert({
                                     ),
                                   ),
                                 ),
-                              ],
-                            ):
-                            TextFormField(
-                              enabled: value.enabled,
-                              readOnly: value.readonly,
-                              controller: value.password,
-                              style: AppTextStyles.style16w400(context).copyWith(fontFamily: 'Almarai',color: AppColors.DarkGreen),
-                              decoration: InputDecoration(
-                                hint: Text(
-                                  '******',
-                                  style: AppTextStyles.style14w400(context),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Container(
-                                margin: EdgeInsets.only(top: 80),
-                                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 48, 48, 48),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: MaterialButton(
-                                  onPressed: () async {
-                                    value.ifedit();
-                                    if (value.enabled == false) {
-                                      if (formkey.currentState!.validate()) {
-                                        showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (_) => Center(
-                                            child: CircularProgressIndicator(),
-                                          ),
-                                        );
-                                        print('start update profile');
-                                        await value.UpdateProfile();
-                                        print('updateProfile is ${value.updateProfile}');
-                                        print('end update profile');
-
-                                        Navigator.pop(context);
-                                      if (value.check)
-                                      {
-                                        editSuccessDialog.showEditSuccessDialog(
-                                          check: value.check,
-                                        context,
-                                        title: 'تم التعديل بنجاح',
-                                        onpressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      );
-                                      }else{
-                                        editSuccessDialog.showEditSuccessDialog(
-                                          check: value.check,
-                                        context,
-                                        title: 'فشل التعديل',
-                                        onpressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      );
+                                Center(
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 80),
+                                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 48, 48, 48),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: MaterialButton(
+                                      onPressed: () async {
+                                        value.ifedit();
+                                        if (value.enabled == false) {
+                                          if (formkey.currentState!.validate()) {
+                                            showDialog(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (_) => Center(
+                                                child: CircularProgressIndicator(),
+                                              ),
+                                            );
+                                            print('start update profile');
+                                            await value.UpdateProfile();
+                                            print('updateProfile is ${value.updateProfile}');
+                                            print('end update profile');
+                
+                                            Navigator.pop(context);
+                                          if (value.check)
+                                          {
+                                            editSuccessDialog.showEditSuccessDialog(
+                                              check: value.check,
+                                            context,
+                                            title: 'تم التعديل بنجاح',
+                                            onpressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          );
+                                          }else{
+                                            editSuccessDialog.showEditSuccessDialog(
+                                              check: value.check,
+                                            context,
+                                            title: 'فشل التعديل',
+                                            onpressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          );
+                                          }
+                                          await value.profile();
+                                        }
                                       }
-                                      await value.profile();
-                                    }
-                                  }
-                                },
-                                  child: Text(
-                                    "${value.botton}",
-                                    textDirection: TextDirection.rtl,
-                                    style: AppTextStyles.style20w400(context).copyWith(fontFamily: 'Tajawal')
+                                    },
+                                      child: Text(
+                                        "${value.botton}",
+                                        textDirection: TextDirection.rtl,
+                                        style: AppTextStyles.style20w400(context).copyWith(fontFamily: 'Tajawal')
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
+                              ],
+                            );
+                          },
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
+                  ],
+                );
+              }
             ),
           ),
         ),

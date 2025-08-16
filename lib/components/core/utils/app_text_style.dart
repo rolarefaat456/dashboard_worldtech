@@ -1,3 +1,4 @@
+// components/core/utils/app_text_style.dart
 import 'package:dashboard/components/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -151,7 +152,7 @@ abstract class AppTextStyles {
   static TextStyle style16w400(BuildContext context) {
     return TextStyle(
       fontFamily: "Noto_Kufi_Arabic",
-      fontSize: getResponsiveScaleFactor(context, fontSize: 16),
+      fontSize: getResponsiveScaleFactor(context, fontSize: 18),
       fontWeight: FontWeight.w400,
       color: AppColors.Black,
     );
